@@ -9,6 +9,7 @@ public class FooBall_Frame extends JFrame{
 	public void init(int[] dimensions) {
 		//Set dimensions for the frame as those passed by main method
 		this.dimensions = dimensions;
+		//blablablablabla
 	}
 	
 	
