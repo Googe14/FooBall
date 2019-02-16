@@ -22,5 +22,9 @@ Set up changelistener for UserPanel object - this will be an important part of h
 Set up multi-threading for my program - 
 A known "issue" with java is that when calling the repaint() method in a loop, the action to repaint the screen is queued on the stack however does not actually get run as if it is only running on a single thread, the time taken to repaint may hold up the program so it is skipped. The solution to this is to multi-thread to the process and run the gameloop in a separate thread, this is something that I have had to do any time I want to repaint on a timer and have had to multi-thread most graphical programs.
 
+Created the ball object to make interacting with the ball easier - also allows program to be scaleable to have multiple balls with the simple addition of a for loop and array.
+
+Added some aesthetic changes to the panels
+
 
 
