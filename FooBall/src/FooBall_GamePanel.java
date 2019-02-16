@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 import javax.swing.JPanel;
 
 //Extend JPanel to make the game panel an independent object
@@ -23,7 +25,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	//Used to safely and properly stop the Thread
     public void stop() {
         if (runner != null) {
-            runner.stop();
+            //runner.stop();
             runner = null;
         }
     }
@@ -106,11 +108,16 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	 		************************************************
 	*/
 	
+	//Create Boolean to control if the gameloop is running
 	boolean isRunning = false;
 
+	//Method to update the game positions and whatever
 	void update() {
 		
 	}
 	
+	public void init() {
+		this.setBackground(Color.BLACK);
+	}
 	
 }
