@@ -59,8 +59,8 @@ public class FooBall_Ball {
 		float mouseY = (float) (mouse.getY()-panel.getY());
 		
 		//Generate an amount of acceleration based on mouse position relative to ball position
-		xAcc += (float) (Math.sqrt((Math.pow((double)(mouseY-y), 2)+Math.pow((double)(mouseX-x), 2)))/((mouseX-x) - width/2))*(0)*accelRate; 
-		yAcc += (float) (Math.sqrt((Math.pow((double)(mouseY-y), 2)+Math.pow((double)(mouseX-x), 2)))/((mouseY-y) - height/2))*(0)*accelRate;
+		//xAcc += (float) (Math.sqrt((Math.pow((double)(mouseY-y), 2)+Math.pow((double)(mouseX-x), 2)))/((mouseX-x) - width/2))*(0)*accelRate; 
+		//yAcc += (float) (Math.sqrt((Math.pow((double)(mouseY-y), 2)+Math.pow((double)(mouseX-x), 2)))/((mouseY-y) - height/2))*(0)*accelRate;
 	}
 	
 	//Move the fooball
