@@ -122,12 +122,12 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		setDoubleBuffered(true);
 		//Refresh screen with a black background
 		g.setColor(Color.BLACK);
-		//g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
 		//Paint Ball
 		for(int i=0; i<ball.length; i++) {
 			g.setColor(ball[i].colour);
-			if(clicked && false) {
+			if(clicked) {
 				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].x + ball[i].width/2), (int)(ball[i].y + ball[i].height/2));
 			}
 			g.fillOval((int)ball[i].x, (int)ball[i].y, ball[i].width, ball[i].height);
