@@ -60,7 +60,8 @@ public class FooBall_Frame extends JFrame{
 	public void start() {
 		this.setVisible(true);
 		
-		
+		pane.init();
+		pane.start();
 		
 	}
 	

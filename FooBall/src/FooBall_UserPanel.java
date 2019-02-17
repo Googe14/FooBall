@@ -17,6 +17,8 @@ public class FooBall_UserPanel extends JPanel{
 	 *  change colour of balls
 	 *  change background colour
 	 *  walls deflect ball
+	 *  Gravity*
+	 *  String mode*
 	 */
 	
 	
