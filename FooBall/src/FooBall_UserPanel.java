@@ -21,7 +21,6 @@ public class FooBall_UserPanel extends JPanel{
 	 *  String mode - highlight connection
 	 *  	when clicked - always
 	 *  Change number of balls
-	 *  
 	 */
 	
 	

@@ -11,12 +11,12 @@ public class FooBall_Ball {
 	
 	Color colour = Color.BLUE;
 	
-	float gravity = 1;
+	float gravity = 1f;
 	//Create rate of speed (in/de)crease
-	float decay = 1;
+	float decay = 1f;
 	float accelRate = 1f;
 	
-	float weight = 1;
+	float weight = 1f;
 	
 	//Set bounds for ball to bounce on
 	int xBounds;
@@ -57,9 +57,10 @@ public class FooBall_Ball {
 		//Get the mouse position as useable data
 		float mouseX = (float) (mouse.getX()-panel.getX());
 		float mouseY = (float) (mouse.getY()-panel.getY());
+		
 		//Generate an amount of acceleration based on mouse position relative to ball position
-		xAcc += ((mouseX - x - width/2)*(0.0025)*accelRate);
-		yAcc += ((mouseY - y - height/2)*(0.0025)*accelRate);
+		xAcc += (float) (Math.sqrt((Math.pow((double)(mouseY-y), 2)+Math.pow((double)(mouseX-x), 2)))/((mouseX-x) - width/2))*(0)*accelRate; 
+		yAcc += (float) (Math.sqrt((Math.pow((double)(mouseY-y), 2)+Math.pow((double)(mouseX-x), 2)))/((mouseY-y) - height/2))*(0)*accelRate;
 	}
 	
 	//Move the fooball
@@ -70,7 +71,7 @@ public class FooBall_Ball {
 		
 		//make acceleration opposite the balls direction to slow it down
 		xAcc = xVel * -0.01f * decay * weight;
-		yAcc = yVel * -0.01f * decay * weight + gravity/2;
+		yAcc = yVel * -0.01f * decay * weight + gravity/2*weight;
 		
 		if(y >= yBounds-height) {
 			yAcc -= gravity/2;
