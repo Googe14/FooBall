@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -121,11 +122,14 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		setDoubleBuffered(true);
 		//Refresh screen with a black background
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		//g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
 		//Paint Ball
 		for(int i=0; i<ball.length; i++) {
-			g.setColor(Color.BLUE);
+			g.setColor(ball[i].colour);
+			if(clicked && false) {
+				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].x + ball[i].width/2), (int)(ball[i].y + ball[i].height/2));
+			}
 			g.fillOval((int)ball[i].x, (int)ball[i].y, ball[i].width, ball[i].height);
 		}
 		
@@ -137,7 +141,9 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	//
 	boolean clicked = false;
 	
-	FooBall_Ball[] ball = new FooBall_Ball[100];
+	FooBall_Ball[] ball = new FooBall_Ball[10];
+	
+	Point mouse;
 
 	//Method to update the game positions and whatever
 	void update() {
@@ -146,8 +152,10 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			
 		}
 		for(int i=0; i<ball.length; i++) {
+			mouse = MouseInfo.getPointerInfo().getLocation();
 			if(clicked) {
-				ball[i].genAccel(MouseInfo.getPointerInfo().getLocation(), this.getLocationOnScreen());
+
+				ball[i].genAccel(mouse, this.getLocationOnScreen());
 			}
 			ball[i].move();
 		}
@@ -162,6 +170,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		for(int i=0; i<ball.length; i++) {
 			ball[i] = new FooBall_Ball();
 			ball[i].setPos((int)(Math.random()*(this.getWidth()-ball[i].width)), (int)(Math.random()*(this.getHeight()-ball[i].height)));
+			ball[i].randomiseColour();
 			//Set bounds for ball[i] to bounce off
 			ball[i].xBounds = this.getWidth();
 			ball[i].yBounds = this.getHeight();

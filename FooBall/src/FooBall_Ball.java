@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
@@ -8,10 +9,12 @@ public class FooBall_Ball {
 	int width = 20;
 	int height = 20;
 	
+	Color colour = Color.BLUE;
+	
 	float gravity = 1;
 	//Create rate of speed (in/de)crease
-	float decay = 1f;
-	float accelRate = 1;
+	float decay = 1;
+	float accelRate = 1f;
 	
 	float weight = 1;
 	
@@ -61,8 +64,6 @@ public class FooBall_Ball {
 	
 	//Move the fooball
 	public void move() {
-
-		
 		//Change velocity of ball
 		xVel += xAcc*accelRate;
 		yVel += yAcc*accelRate;
@@ -86,7 +87,10 @@ public class FooBall_Ball {
 		if(y <= 0 || y >= yBounds-width) {
 			yVel *= -1;
 		}
-
+	}
+	
+	public void randomiseColour() {
+		colour = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
 	}
 	
 }
