@@ -11,9 +11,9 @@ public class FooBall_Ball {
 	
 	Color colour = Color.BLUE;
 	
-	float gravity = 1;
+	float gravity = 1f;
 	//Create rate of speed (in/de)crease
-	float decay = 1;
+	float decay = 1f;
 	float accelRate = 1f;
 	
 	float weight = 1;
@@ -58,8 +58,8 @@ public class FooBall_Ball {
 		float mouseX = (float) (mouse.getX()-panel.getX());
 		float mouseY = (float) (mouse.getY()-panel.getY());
 		//Generate an amount of acceleration based on mouse position relative to ball position
-		xAcc += ((mouseX - x - width/2)*(0.0025)*accelRate);
-		yAcc += ((mouseY - y - height/2)*(0.0025)*accelRate);
+		xAcc += ((mouseX - (x - width/2))*(0.0025)*accelRate);
+		yAcc += ((mouseY - (y - height/2))*(0.0025)*accelRate);
 	}
 	
 	//Move the fooball
@@ -72,20 +72,27 @@ public class FooBall_Ball {
 		xAcc = xVel * -0.01f * decay * weight;
 		yAcc = yVel * -0.01f * decay * weight + gravity/2;
 		
-		if(y >= yBounds-height) {
-			yAcc -= gravity/2;
-		}
-		
 		//Move the ball
 		y += yVel;
 		x += xVel;
 		
 		//Bounce the ball
-		if(x <= 0 || x >= xBounds-width) {
-			xVel *= -1;
+		if(x >= xBounds-width) {
+			xVel *= -0.95;
+			x = xBounds-width;
 		}
-		if(y <= 0 || y >= yBounds-width) {
-			yVel *= -1;
+		if(x <= 0) {
+			xVel *= -0.95;
+			x = 0;
+		}
+		
+		if(y >= yBounds-width) {
+			yVel *= -0.95;
+			y = yBounds-height;
+		}
+		if(y <= 0) {
+			yVel *= -0.95;
+			y = 0;
 		}
 	}
 	

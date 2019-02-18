@@ -7,7 +7,7 @@ public class FooBall_App {
 		
 		//Set a few universal parameters - Being set in main method to easily modify at any time
 		//Create dimensions array which will hold the dimensions of the Gamepanel, not the whole frame
-		int[] dimensions = {900, 900};
+		int[] dimensions = {650, 650};
 		String name = "FooBall";
 		
 		
