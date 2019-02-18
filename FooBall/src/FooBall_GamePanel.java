@@ -124,25 +124,30 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
-		//Paint Ball
+		//Paint Ball - iterate through each ball to paint it
 		for(int i=0; i<ball.length; i++) {
+			//Set colour to that of the select ball
 			g.setColor(ball[i].colour);
+			//Check if mouse is clicked down
 			if(clicked) {
+				//If so, draw a line connecting the mouse to the ball - before drawing ball so that the ball appears on the line
 				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].x + ball[i].width/2), (int)(ball[i].y + ball[i].height/2));
 			}
+			//Draw ball
 			g.fillOval((int)ball[i].x, (int)ball[i].y, ball[i].width, ball[i].height);
 		}
-		
+		//Sync graphics toolkit - smoothes repeated drawing when using some linux drivers
     	Toolkit.getDefaultToolkit().sync();
 	}
 	
 	//Create Boolean to control if the gameloop is running
 	boolean isRunning = false;
-	//
+	//Store if the mouse is presently held down or not
 	boolean clicked = false;
 	
-	FooBall_Ball[] ball = new FooBall_Ball[10];
-	
+	//Create array of balls for the game
+	FooBall_Ball[] ball;
+	//Point to store position of mouse
 	Point mouse;
 
 	//Method to update the game positions and whatever
@@ -165,23 +170,29 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	
 	//Initialise panel and create everything it needs
 	public void init() {
-		//this.setBackground(Color.BLACK);
+		//Set length of ball array
+		ball = new FooBall_Ball[10];
+		
+		//Add mouse listener to get if it's clicked or not
 		this.addMouseListener(evt);
 		
+		//Iterate through every ball
 		for(int i=0; i<ball.length; i++) {
+			//Create a new ball for each position in the array
 			ball[i] = new FooBall_Ball();
+			//Set the position of that ball randomly
 			ball[i].setPos((int)(Math.random()*(this.getWidth()-ball[i].width)), (int)(Math.random()*(this.getHeight()-ball[i].height)));
+			//Randomise the colour of the ball 
 			ball[i].randomiseColour();
-			//Set bounds for ball[i] to bounce off
+			//Set bounds for that ball to bounce off
 			ball[i].xBounds = this.getWidth();
 			ball[i].yBounds = this.getHeight();
 			
 			//ball[i].weight = (float) Math.random()*4;
 		}
 		
-
 		
-		//sync toolkit used for painting - (smoothes animation for rendering using drivers on some linux machines)
+		
 	}
 
 	
@@ -189,30 +200,33 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	//Mouse Listener event to check for mouse click
 	MouseListener evt = new MouseListener() {
 
+		//Not needed
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 			
 		}
-
+		//Not needed
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 			
 		}
-
+		//Not needed
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 			
 		}
-
+		
+		//Check if mouse has been pressed
 		@Override
 		public void mousePressed(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 			clicked = true;
 		}
 
+		//Check if mouse has been un-pressed
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub
