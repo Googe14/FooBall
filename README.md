@@ -3,6 +3,31 @@ Year 11 Digital Technologies assignment
 
 The raw code for this project can be found in FooBall/src with FooBall_App.class being the main class.
 
+
+
+# Storyboard/Roadmap
+
+The objective of this application is to recreate the classic Doccy Jo bouncing balls tutorial, but expand by instead of having a game, make more of a sanbox application where users can mess with the balls and change things like the colours, physics, size etc.
+
+- Have balls bouncing around,
+- Make mouse interactions: Accelerate towards mouse,
+- Have balls react to gravity,
+- Have a UI for the user to interact with the balls from
+- Add pause and continue functionality
+- Select individual balls while paused - edit individual ball's settings'
+- Dynamically alter number of balls
+
+## Details of game
+Balls will react to gravity and manipulate themselves in terms of movement
+
+## controls
+Click to apply a force of acceleration towards the mouse on all balls
+
+Mess with settings as you please
+
+
+
+<s>
 # Writeup
 I chose to do this as my computing project for a few different reasons, the first being that in my time that I have been programming, I have done a lot of projects that are simply recreations of famous/popular games. While I believe this is a very good idea to do every once in a while, as it allows you to practice problem solving strategies and gives you a very specific goal that you will need to work towards, I decided that I would like to make something original, and I am not aware that I have seen anything else with quite this concept. Another reason is that I wanted to create something with a degree of physics that I was comfortable I would be able to sit down and figure out how to implement. I have not done anything really with physics before, the most I have done is pretty much just manipulating spirals (Using the unit circle, Sin, Cos, etc) and some simple systems that influence each other (Conway's Game of Life, a cellular automaton. Yet I did not want to do something too complicated, for example, I am not familiar enough with the physics of gravity to be able to program meaningful gravity (something that resembles gravity instead of a simple jump up and down with constant velocity and no acceleration), and while I would like to do that, I feel that if I were to make something with gravity, I would most likely copy the code from elsewhere on the Internet, which is not very good problem solving, so I will save the for a slightly later date.
 
@@ -30,6 +55,6 @@ A known "issue" with java is that when calling the repaint() method in a loop, t
 Created the ball object to make interacting with the ball easier - also allows program to be scaleable to have multiple balls with the simple addition of a for loop and array.
 
 Added some aesthetic changes to the panels
-
+</s>
 
 
