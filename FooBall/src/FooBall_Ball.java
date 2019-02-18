@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.MouseInfo;
 import java.awt.Point;
 
 //Simple class to hold data for the ball and do it's own movement calculations
@@ -9,6 +8,7 @@ public class FooBall_Ball {
 	int width = 20;
 	int height = 20;
 	
+	//Set default colour of balls
 	Color colour = Color.BLUE;
 	
 	float gravity = 1f;
@@ -52,8 +52,21 @@ public class FooBall_Ball {
 		this.decay = decay;
 		this.accelRate = accelRate;
 	}
+	
+	public void setBounds(int xBounds, int yBounds) {
+		this.xBounds = xBounds;
+		this.yBounds = yBounds;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
+	}
 
 	public void genAccel(Point mouse, Point panel) {
+		
 		//Get the mouse position as useable data
 		float mouseX = (float) (mouse.getX()-panel.getX());
 		float mouseY = (float) (mouse.getY()-panel.getY());

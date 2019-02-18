@@ -5,22 +5,22 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.EventListener;
-
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 //Extend JPanel to make the game panel an independent object
 //Implements the Runnable object to allow certain code in this class to be run on a separate thread
 //Multi-threading will be important when painting
 public class FooBall_GamePanel extends JPanel implements Runnable{
 
+	//Serialise class
+	private static final long serialVersionUID = 1L;
+
 	/*
 	 		************************************************
 			*********Multi-Threading implementation*********
 			************************************************
 	*/
-	
+
 	//Create new Thread object that will be used to run the game loop
 	Thread runner;
 	//Used to safely and properly start the Thread
@@ -131,10 +131,10 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			//Check if mouse is clicked down
 			if(clicked) {
 				//If so, draw a line connecting the mouse to the ball - before drawing ball so that the ball appears on the line
-				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].x + ball[i].width/2), (int)(ball[i].y + ball[i].height/2));
+				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].x + ball[i].getWidth()/2), (int)(ball[i].y + ball[i].getHeight()/2));
 			}
 			//Draw ball
-			g.fillOval((int)ball[i].x, (int)ball[i].y, ball[i].width, ball[i].height);
+			g.fillOval((int)ball[i].x, (int)ball[i].y, ball[i].getWidth(), ball[i].getHeight());
 		}
 		//Sync graphics toolkit - smoothes repeated drawing when using some linux drivers
     	Toolkit.getDefaultToolkit().sync();
@@ -181,7 +181,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			//Create a new ball for each position in the array
 			ball[i] = new FooBall_Ball();
 			//Set the position of that ball randomly
-			ball[i].setPos((int)(Math.random()*(this.getWidth()-ball[i].width)), (int)(Math.random()*(this.getHeight()-ball[i].height)));
+			ball[i].setPos((int)(Math.random()*(this.getWidth()-ball[i].getWidth())), (int)(Math.random()*(this.getHeight()-ball[i].getHeight())));
 			//Randomise the colour of the ball 
 			ball[i].randomiseColour();
 			//Set bounds for that ball to bounce off

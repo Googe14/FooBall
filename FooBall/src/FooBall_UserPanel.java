@@ -8,6 +8,9 @@ import javax.swing.JRadioButton;
 //Create another JPanel to hold all the user controlled data
 public class FooBall_UserPanel extends JPanel{
 	
+	//Serialise class
+	private static final long serialVersionUID = 1L;
+
 	//Label 
 	JLabel settings = new JLabel("Settings:");
 	

@@ -1,14 +1,14 @@
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 //Extend JFrame to make the window it's own object
 public class FooBall_Frame extends JFrame{
+
+	//Serialise class
+	private static final long serialVersionUID = 1L;
 
 	//Create variables for the frame
 	int[] dimensions;
