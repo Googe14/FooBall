@@ -5,34 +5,34 @@ import java.awt.Point;
 public class FooBall_Ball {
 	
 	//Create size of ball
-	int width = 20;
-	int height = 20;
+	private int width = 20;
+	private int height = 20;
 	
 	//Set default colour of balls
-	Color colour = Color.BLUE;
+	private Color colour = Color.BLUE;
 	
-	float gravity = 1f;
+	private float gravity = 1f;
 	//Create rate of speed (in/de)crease
-	float decay = 1f;
-	float accelRate = 1f;
+	private float decay = 1f;
+	private float accelRate = 1f;
 	
-	float weight = 1;
+	private float weight = 1;
 	
 	//Set bounds for ball to bounce on
-	int xBounds;
-	int yBounds;
+	private int xBounds;
+	private int yBounds;
 	
 	//Create position
-	float x;
-	float y;
+	private float x;
+	private float y;
 	
 	//Create movement
-	float xVel = 0f;
-	float yVel = 0f;
+	private float xVel = 0f;
+	private float yVel = 0f;
 	
 	//Create acceleration
-	float xAcc = 0;
-	float yAcc = 0;
+	private float xAcc = 0;
+	private float yAcc = 0;
 	
 	//Setters for details of ball
 	public void setPos(float x, float y) {
@@ -64,6 +64,13 @@ public class FooBall_Ball {
 	public int getHeight() {
 		return height;
 	}
+	
+	public int getX() {
+		return (int)x;
+	}
+	public int getY() {
+		return (int)y;
+	}
 
 	public void genAccel(Point mouse, Point panel) {
 		
@@ -83,34 +90,48 @@ public class FooBall_Ball {
 		
 		//make acceleration opposite the balls direction to slow it down
 		xAcc = xVel * -0.01f * decay * weight;
-		yAcc = yVel * -0.01f * decay * weight + gravity/2;
+		yAcc = yVel * -0.01f * decay * weight;
 		
 		//Move the ball
 		y += yVel;
 		x += xVel;
 		
+		//Apply gravity
+		yAcc += gravity/2;
+		
 		//Bounce the ball
+		//Bounce on Right side
 		if(x >= xBounds-width) {
 			xVel *= -0.95;
 			x = xBounds-width;
 		}
+		//left side
 		if(x <= 0) {
 			xVel *= -0.95;
 			x = 0;
 		}
-		
+		//bottom
 		if(y >= yBounds-width) {
 			yVel *= -0.95;
 			y = yBounds-height;
 		}
+		//top
 		if(y <= 0) {
 			yVel *= -0.95;
 			y = 0;
 		}
 	}
 	
+	//Randomise colour of the ball
 	public void randomiseColour() {
-		colour = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+		setColour(new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+	}
+	//set/getter for colour
+	public Color getColour() {
+		return colour;
+	}
+	public void setColour(Color colour) {
+		this.colour = colour;
 	}
 	
 }

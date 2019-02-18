@@ -127,14 +127,14 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		//Paint Ball - iterate through each ball to paint it
 		for(int i=0; i<ball.length; i++) {
 			//Set colour to that of the select ball
-			g.setColor(ball[i].colour);
+			g.setColor(ball[i].getColour());
 			//Check if mouse is clicked down
 			if(clicked) {
 				//If so, draw a line connecting the mouse to the ball - before drawing ball so that the ball appears on the line
-				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].x + ball[i].getWidth()/2), (int)(ball[i].y + ball[i].getHeight()/2));
+				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].getX() + ball[i].getWidth()/2), (int)(ball[i].getY() + ball[i].getHeight()/2));
 			}
 			//Draw ball
-			g.fillOval((int)ball[i].x, (int)ball[i].y, ball[i].getWidth(), ball[i].getHeight());
+			g.fillOval(ball[i].getX(), ball[i].getY(), ball[i].getWidth(), ball[i].getHeight());
 		}
 		//Sync graphics toolkit - smoothes repeated drawing when using some linux drivers
     	Toolkit.getDefaultToolkit().sync();
@@ -185,8 +185,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			//Randomise the colour of the ball 
 			ball[i].randomiseColour();
 			//Set bounds for that ball to bounce off
-			ball[i].xBounds = this.getWidth();
-			ball[i].yBounds = this.getHeight();
+			ball[i].setBounds(this.getWidth(), this.getHeight());
 			
 			//ball[i].weight = (float) Math.random()*4;
 		}
