@@ -158,6 +158,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 				ball[i].genAccel(mouse, this.getLocationOnScreen());
 			}
 			ball[i].move();
+			//ball[i].randomiseColour();
 		}
 		
 	}
@@ -174,6 +175,8 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			//Set bounds for ball[i] to bounce off
 			ball[i].xBounds = this.getWidth();
 			ball[i].yBounds = this.getHeight();
+			
+			//ball[i].weight = (float) Math.random()*4;
 		}
 		
 
