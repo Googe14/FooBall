@@ -9,13 +9,17 @@ The raw code for this project can be found in FooBall/src with FooBall_App.class
 
 The objective of this application is to recreate the classic Doccy Jo bouncing balls tutorial, but expand by instead of having a game, make more of a sanbox application where users can mess with the balls and change things like the colours, physics, size etc.
 
+(?) = possibility but not necessary
+
 - <s>Have balls bouncing around,</s>
 - <s>Make mouse interactions: Accelerate towards mouse,</s>
 - <s>Have balls react to gravity,</s>
 - Have a UI for the user to interact with the balls from
 - Add pause and continue functionality
-- Select individual balls while paused - edit individual ball's settings'
-- Dynamically alter number of balls
+- Select individual balls while paused - edit individual ball's settings' (?)
+- Dynamically alter number of balls (?)
+- <s>Ball collisions</s>
+- <s>Ball bouncing off each other</s>
 
 ## Details of game
 Balls will react to gravity and manipulate themselves in terms of movement

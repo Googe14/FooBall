@@ -37,6 +37,8 @@ public class FooBall_UserPanel extends JPanel{
 	 * 
 	 * 3x Text Input - Background colour
 	 * 		R:G:B: - background colour
+	 * 
+	 * Check box - Collisions
 	 */
 	
 	

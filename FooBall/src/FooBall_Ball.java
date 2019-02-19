@@ -5,15 +5,18 @@ import java.awt.Point;
 public class FooBall_Ball {
 	
 	//Create size of ball
-	private int width = 20;
-	private int height = 20;
+	private int width = 50;
+	private int height = 50;
+	
+	//Boolean to prevent ball from colliding with more than 1 other ball and creating energy that shouldn't exist
+	boolean collided = false;
 	
 	//Set default colour of balls
 	private Color colour = Color.BLUE;
 	
 	private float gravity = 1f;
 	//Create rate of speed (in/de)crease
-	private float decay = 1f;
+	private float decay = 0f;
 	private float accelRate = 1f;
 	
 	private float weight = 1;
@@ -71,9 +74,28 @@ public class FooBall_Ball {
 	public int getY() {
 		return (int)y;
 	}
+	
+	public boolean isCollided() {
+		return collided;
+	}
+	public void setCollided() {
+		collided = true;
+	}
 
+	//Apply force in direction
+	public void applyForce(float xForce, float yForce) {
+		xAcc += xForce;
+		yAcc += yForce;
+	}
+	public float getVelX() {
+		return xVel;
+	}
+	public float getVelY() {
+		return yVel;
+	}
+	
+	//Generate acceleration based on mouse position
 	public void genAccel(Point mouse, Point panel) {
-		
 		//Get the mouse position as useable data
 		float mouseX = (float) (mouse.getX()-panel.getX());
 		float mouseY = (float) (mouse.getY()-panel.getY());
@@ -84,6 +106,8 @@ public class FooBall_Ball {
 	
 	//Move the fooball
 	public void move() {
+		collided = false;
+		
 		//Change velocity of ball
 		xVel += xAcc*accelRate;
 		yVel += yAcc*accelRate;

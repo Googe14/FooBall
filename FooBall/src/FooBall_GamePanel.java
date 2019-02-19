@@ -156,12 +156,15 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		if(clicked) {
 			
 		}
+		checkCollisions();
 		for(int i=0; i<ball.length; i++) {
 			mouse = MouseInfo.getPointerInfo().getLocation();
 			if(clicked) {
 
 				ball[i].genAccel(mouse, this.getLocationOnScreen());
 			}
+			
+			//Move balls
 			ball[i].move();
 			//ball[i].randomiseColour();
 		}
@@ -171,7 +174,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	//Initialise panel and create everything it needs
 	public void init() {
 		//Set length of ball array
-		ball = new FooBall_Ball[10];
+		ball = new FooBall_Ball[5];
 		
 		//Add mouse listener to get if it's clicked or not
 		this.addMouseListener(evt);
@@ -194,6 +197,51 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		
 	}
 
+	//Collide balls
+	void collide(FooBall_Ball ball1, FooBall_Ball ball2) {
+		ball1.applyForce(ball2.getVelX(), ball2.getVelY());
+		//ball2.applyForce(-ball2.getVelX(), -ball2.getVelY());
+		ball2.setVel(0, 0);
+		
+		ball2.applyForce(ball1.getVelX(), ball1.getVelY());
+		//ball1.applyForce(-ball1.getVelX(), -ball1.getVelY());
+		ball1.setVel(0, 0);
+		
+	}
+	
+	
+	//Check if the given two balls are colliding
+	void compareBalls(FooBall_Ball ball1, FooBall_Ball ball2) {
+		//Get coordinates of balls
+		int x1 = ball1.getX();
+		int x2 = ball2.getX();
+		
+		int y1 = ball1.getY();
+		int y2 = ball2.getY();
+		//Get the distance between those coordinates
+		int distance = (int)Math.sqrt((Math.pow((double)(x2-x1), 2)+Math.pow((double)(y2-y1), 2)));
+		//Check if they are touching
+		if(distance <= ball1.getHeight()/2 + ball2.getHeight()/2) {
+			collide(ball1, ball2);
+		}
+	}
+	
+	
+	//Check if all the balls have collided
+	void checkCollisions() {
+		int n = ball.length;
+		//Got to each element of the array
+		for(int i=0; i<n; i++) {
+			//Go to each element on the array again
+			for(int j=0; j<n; j++) {
+				//Skip comparing to self or if ball has already bounced
+				if(i == j) {
+					break;
+				}
+				compareBalls(ball[i], ball[j]);
+			}
+		}
+	}
 	
 	
 	//Mouse Listener event to check for mouse click
