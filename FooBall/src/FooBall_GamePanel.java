@@ -144,6 +144,8 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	boolean isRunning = false;
 	//Store if the mouse is presently held down or not
 	boolean clicked = false;
+	//Boolean to check if game has initialised yet
+	boolean inInit = true;
 	
 	//Create array of balls for the game
 	FooBall_Ball[] ball;
@@ -183,8 +185,11 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		for(int i=0; i<ball.length; i++) {
 			//Create a new ball for each position in the array
 			ball[i] = new FooBall_Ball();
+			ball[i].init();
 			//Set the position of that ball randomly
 			ball[i].setPos((int)(Math.random()*(this.getWidth()-ball[i].getWidth())), (int)(Math.random()*(this.getHeight()-ball[i].getHeight())));
+			
+			
 			//Randomise the colour of the ball 
 			ball[i].randomiseColour();
 			//Set bounds for that ball to bounce off
@@ -199,13 +204,16 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 
 	//Collide balls
 	void collide(FooBall_Ball ball1, FooBall_Ball ball2) {
+		/*
 		ball1.applyForce(ball2.getVelX(), ball2.getVelY());
-		//ball2.applyForce(-ball2.getVelX(), -ball2.getVelY());
 		ball2.setVel(0, 0);
 		
 		ball2.applyForce(ball1.getVelX(), ball1.getVelY());
-		//ball1.applyForce(-ball1.getVelX(), -ball1.getVelY());
 		ball1.setVel(0, 0);
+		*/
+		
+		int newXVel = ball1.getVelX();
+		
 		
 	}
 	
@@ -222,6 +230,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		int distance = (int)Math.sqrt((Math.pow((double)(x2-x1), 2)+Math.pow((double)(y2-y1), 2)));
 		//Check if they are touching
 		if(distance <= ball1.getHeight()/2 + ball2.getHeight()/2) {
+			//Make colliding balls bounce
 			collide(ball1, ball2);
 		}
 	}
@@ -238,6 +247,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 				if(i == j) {
 					break;
 				}
+				
 				compareBalls(ball[i], ball[j]);
 			}
 		}

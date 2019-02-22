@@ -4,9 +4,12 @@ import java.awt.Point;
 //Simple class to hold data for the ball and do it's own movement calculations
 public class FooBall_Ball {
 	
+	
 	//Create size of ball
-	private int width = 50;
-	private int height = 50;
+	private int radius = 20;
+
+	private int width;
+	private int height;
 	
 	//Boolean to prevent ball from colliding with more than 1 other ball and creating energy that shouldn't exist
 	boolean collided = false;
@@ -16,10 +19,10 @@ public class FooBall_Ball {
 	
 	private float gravity = 1f;
 	//Create rate of speed (in/de)crease
-	private float decay = 0f;
+	private float decay = 1f;
 	private float accelRate = 1f;
 	
-	private float weight = 1;
+	private float mass = radius/20;
 	
 	//Set bounds for ball to bounce on
 	private int xBounds;
@@ -105,23 +108,25 @@ public class FooBall_Ball {
 	}
 	
 	//Move the fooball
-	public void move() {
-		collided = false;
-		
+	public void move() {		
 		//Change velocity of ball
 		xVel += xAcc*accelRate;
 		yVel += yAcc*accelRate;
 		
 		//make acceleration opposite the balls direction to slow it down
-		xAcc = xVel * -0.01f * decay * weight;
-		yAcc = yVel * -0.01f * decay * weight;
+		if(!collided) {
+			xAcc = xVel * -0.01f * decay * mass;
+			yAcc = yVel * -0.01f * decay * mass;
+			//Apply gravity
+			yAcc += gravity/2;
+		} else {
+			xAcc = 0;
+			yAcc = 0;
+		}
 		
 		//Move the ball
 		y += yVel;
 		x += xVel;
-		
-		//Apply gravity
-		yAcc += gravity/2;
 		
 		//Bounce the ball
 		//Bounce on Right side
@@ -144,6 +149,8 @@ public class FooBall_Ball {
 			yVel *= -0.95;
 			y = 0;
 		}
+		collided = false;
+
 	}
 	
 	//Randomise colour of the ball
@@ -156,6 +163,11 @@ public class FooBall_Ball {
 	}
 	public void setColour(Color colour) {
 		this.colour = colour;
+	}
+	
+	public void init() {
+		height = radius*2;
+		width = radius*2;
 	}
 	
 }
