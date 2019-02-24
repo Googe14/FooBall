@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Vector;
+
 import javax.swing.JPanel;
 
 //Extend JPanel to make the game panel an independent object
@@ -131,14 +133,15 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			//Check if mouse is clicked down
 			if(clicked) {
 				//If so, draw a line connecting the mouse to the ball - before drawing ball so that the ball appears on the line
-				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].getX() + ball[i].getWidth()/2), (int)(ball[i].getY() + ball[i].getHeight()/2));
+				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].getX() + ball[i].getRadius()), (int)(ball[i].getY() + ball[i].getRadius()));
 			}
 			//Draw ball
-			g.fillOval(ball[i].getX(), ball[i].getY(), ball[i].getWidth(), ball[i].getHeight());
+			g.fillOval(ball[i].getX(), ball[i].getY(), ball[i].getRadius()*2, ball[i].getRadius()*2);
 		}
 		//Sync graphics toolkit - smoothes repeated drawing when using some linux drivers
     	Toolkit.getDefaultToolkit().sync();
 	}
+	
 	
 	//Create Boolean to control if the gameloop is running
 	boolean isRunning = false;
@@ -146,6 +149,10 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	boolean clicked = false;
 	//Boolean to check if game has initialised yet
 	boolean inInit = true;
+	//Stor if bounces are realistic or direct energy transfer
+	boolean realistic;
+	
+	FooBall_Physics physics = new FooBall_Physics();
 	
 	//Create array of balls for the game
 	FooBall_Ball[] ball;
@@ -158,7 +165,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		if(clicked) {
 			
 		}
-		checkCollisions();
+		physics.checkCollisions(ball, realistic);
 		for(int i=0; i<ball.length; i++) {
 			mouse = MouseInfo.getPointerInfo().getLocation();
 			if(clicked) {
@@ -168,6 +175,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			
 			//Move balls
 			ball[i].move();
+			
 			//ball[i].randomiseColour();
 		}
 		
@@ -175,8 +183,10 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	
 	//Initialise panel and create everything it needs
 	public void init() {
+		//Set realistic bounces
+		realistic = true;
 		//Set length of ball array
-		ball = new FooBall_Ball[5];
+		ball = new FooBall_Ball[10];
 		
 		//Add mouse listener to get if it's clicked or not
 		this.addMouseListener(evt);
@@ -187,9 +197,8 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			ball[i] = new FooBall_Ball();
 			ball[i].init();
 			//Set the position of that ball randomly
-			ball[i].setPos((int)(Math.random()*(this.getWidth()-ball[i].getWidth())), (int)(Math.random()*(this.getHeight()-ball[i].getHeight())));
-			
-			
+			ball[i].setPos((int)(Math.random()*(this.getWidth()-(ball[i].getRadius()*2))), (int)(Math.random()*(this.getHeight()-(ball[i].getRadius()*2))));
+						
 			//Randomise the colour of the ball 
 			ball[i].randomiseColour();
 			//Set bounds for that ball to bounce off
@@ -198,59 +207,6 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			//ball[i].weight = (float) Math.random()*4;
 		}
 		
-		
-		
-	}
-
-	//Collide balls
-	void collide(FooBall_Ball ball1, FooBall_Ball ball2) {
-		/*
-		ball1.applyForce(ball2.getVelX(), ball2.getVelY());
-		ball2.setVel(0, 0);
-		
-		ball2.applyForce(ball1.getVelX(), ball1.getVelY());
-		ball1.setVel(0, 0);
-		*/
-		
-		int newXVel = ball1.getVelX();
-		
-		
-	}
-	
-	
-	//Check if the given two balls are colliding
-	void compareBalls(FooBall_Ball ball1, FooBall_Ball ball2) {
-		//Get coordinates of balls
-		int x1 = ball1.getX();
-		int x2 = ball2.getX();
-		
-		int y1 = ball1.getY();
-		int y2 = ball2.getY();
-		//Get the distance between those coordinates
-		int distance = (int)Math.sqrt((Math.pow((double)(x2-x1), 2)+Math.pow((double)(y2-y1), 2)));
-		//Check if they are touching
-		if(distance <= ball1.getHeight()/2 + ball2.getHeight()/2) {
-			//Make colliding balls bounce
-			collide(ball1, ball2);
-		}
-	}
-	
-	
-	//Check if all the balls have collided
-	void checkCollisions() {
-		int n = ball.length;
-		//Got to each element of the array
-		for(int i=0; i<n; i++) {
-			//Go to each element on the array again
-			for(int j=0; j<n; j++) {
-				//Skip comparing to self or if ball has already bounced
-				if(i == j) {
-					break;
-				}
-				
-				compareBalls(ball[i], ball[j]);
-			}
-		}
 	}
 	
 	
