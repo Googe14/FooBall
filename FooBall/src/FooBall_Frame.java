@@ -36,6 +36,7 @@ public class FooBall_Frame extends JFrame{
 		
 		//Initialize panels - setting size and location on Frame
 		pane.setPreferredSize(new Dimension(dimensions[0], dimensions[1]));
+		pane.setDims(new Dimension(dimensions[0], dimensions[1]));
 		pane.setLocation(0,  0);
 		userPane.setPreferredSize(new Dimension(200, dimensions[1]));
 		userPane.setLocation(dimensions[0], 0);
@@ -59,8 +60,6 @@ public class FooBall_Frame extends JFrame{
 	//Open frame and start program (basically new Main method)
 	public void start() {
 		this.setVisible(true);
-		
-		pane.init();
 		pane.start();
 		
 	}

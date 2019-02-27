@@ -232,7 +232,7 @@ public class FooBall_Physics {
 			int py = (int)vy;
 			//Get target distance apart of balls and set it as difference
 			int td = r1+r2;
-			td -= (int)Math.sqrt(px*px + py*py) - 4;
+			td -= (int)Math.sqrt(px*px + py*py) - 2;
 			if(vx != 0 || vy != 0) {
 				//Get length of vector
 				float vl = (float)Math.sqrt((vx*vx + vy*vy));
@@ -244,6 +244,7 @@ public class FooBall_Physics {
 			//Move balls out of each other
 			target.setPos(target.getX()+(vx*td/2), target.getY()+(vy*td/2));
 			ball1.setPos(ball1.getX()-(vx*td/2), ball1.getY()-(vy*td/2));
+
 			
 		}
 		
@@ -282,7 +283,6 @@ public class FooBall_Physics {
 					if(i == j) {
 						break;
 					}
-					
 					compareBalls(ball.get(i), ball.get(j), realistic);
 				}
 			}
@@ -295,9 +295,8 @@ public class FooBall_Physics {
 			int y1 = target.getY();
 			
 			for(int i=0; i<ball.size(); i++) {
-				if(ball.get(i).getId() == 0) {
-					break;
-				}
+				if(ball.get(i).getId() != target.getId()) {
+				
 					//Get position of other balls
 					int x2 = ball.get(i).getX();
 					int y2 = ball.get(i).getY();
@@ -305,10 +304,10 @@ public class FooBall_Physics {
 					//Get the distance between those coordinates
 					int distance = (int)Math.sqrt((x2-x1)*(x2-x1)+ (y2-y1)*(y2-y1));
 					//Check if they are touching
-					if(distance <= ball.get(i).getRadius() + target.getRadius() && target.getId() != ball.get(i).getId()) {
+					if(distance <= ball.get(i).getRadius() + target.getRadius()) {
 						return false;
 					}
-				
+				}
 			}
 			//Balls are not touching any others
 			return true;

@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -57,11 +58,11 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	
 	
 	// desired fps
-	private final static int    MAX_FPS = 60;
+	private final static int    MAX_FPS = 120;
 	// maximum number of frames to be skipped
 	private final static int    MAX_FRAME_SKIPS = 5;
 	// the frame period
-	private final static int    FRAME_PERIOD = 1000 / MAX_FPS;  
+	private final static int    FRAME_PERIOD = 2000 / MAX_FPS;  
 	 
 
 	public void loop() {
@@ -152,13 +153,15 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	//Stor if bounces are realistic or direct energy transfer
 	boolean realistic;
 	//Number of balls to spawn
-	int numBalls = 100;
+	int numBalls = 10;
+	
+	int width = this.getWidth();
+	int height = this.getHeight();
 	
 	FooBall_Physics physics = new FooBall_Physics();
 	
 	//Create array of balls for the game
-	FooBall_Ball[] ball2;
-	ArrayList<FooBall_Ball> ball = new ArrayList<FooBall_Ball>();
+	ArrayList<FooBall_Ball> ball = new ArrayList<>();
 	//Point to store position of mouse
 	Point mouse;
 
@@ -185,9 +188,15 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		this.numBalls = numBalls;
 	}
 	
+	int rWidth;
+	int rHeight;
+	
+	public void setDims(Dimension dims) {
+		this.setSize(dims);
+	}
+	
 	//Initialise panel and create everything it needs
 	public void init() {
-		
 		//Set realistic bounces
 		realistic = true;
 		//Set length of ball array
@@ -196,17 +205,17 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		this.addMouseListener(evt);
 		
 		//Iterate through every ball
-		for(int i=0; i<ball.size(); i++) {
+		for(int i=0; i<numBalls; i++) {
+
 			//Create a new ball for each position in the array
-			ball.add(new FooBall_Ball());
-			ball.get(i).init(i+1);
+			ball.add(i, new FooBall_Ball());
+			ball.get(i).init(i);
 			boolean spaceAvailable = false;
 			while(!spaceAvailable) {
 				//Set the position of that ball randomly
-				ball.get(i).setPos((int)(Math.random()*(this.getWidth()-(ball.get(i).getRadius()*2))), (int)(Math.random()*(this.getHeight()-(ball.get(i).getRadius()*2))));
+				ball.get(i).setPos((int)(Math.random()*(this.getWidth()-(ball.get(i).getRadius()*2))+ball.get(i).getRadius()), (int)(Math.random()*(this.getHeight()-(ball.get(i).getRadius()*2))+ball.get(i).getRadius()));
 				//Check if there is space in that spot to hold the ball
 				spaceAvailable = physics.checkForSpace(ball, ball.get(i));
-				System.out.println(spaceAvailable);
 			}
 			//Randomise the colour of the ball 
 			ball.get(i).randomiseColour();
