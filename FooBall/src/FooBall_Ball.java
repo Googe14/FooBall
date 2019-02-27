@@ -5,6 +5,8 @@ import java.awt.Point;
 public class FooBall_Ball extends FooBall_PhysicsObj {
 	
 	
+	int id = 0;
+	
 	//Create size of ball
 	private int radius = size;
 	
@@ -12,7 +14,21 @@ public class FooBall_Ball extends FooBall_PhysicsObj {
 		return radius;
 	}
 	
+	public int getId() {
+		return id;
+	}
 	
+	@Override
+	public void setSize(int size) {
+		radius = size/2;
+		this.size = size;
+		mass = size*density/20;
+	}
+	
+	public void setRadius(int radius) {
+		this.radius = radius;
+		setSize(radius*2);
+	}
 	
 	//Generate acceleration based on mouse position
 	public void genAccel(Point mouse, Point panel) {
@@ -20,13 +36,14 @@ public class FooBall_Ball extends FooBall_PhysicsObj {
 		float mouseX = (float) (mouse.getX()-panel.getX()) - radius*2;
 		float mouseY = (float) (mouse.getY()-panel.getY()) - radius*2;
 		//Generate an amount of acceleration based on mouse position relative to ball position
-		xAcc += ((mouseX - (x - width/2))*(0.0025)*accelRate);
-		yAcc += ((mouseY - (y - height/2))*(0.0025)*accelRate);
+		xAcc += ((mouseX - (x - radius))*(0.0025)*accelRate*1/mass);
+		yAcc += ((mouseY - (y - radius))*(0.0025)*accelRate*1/mass);
 	}
 	
-	public void init() {
-		height = radius*2;
-		width = radius*2;
+	
+	//Redundant
+	public void init(int id) {
+		this.id = id;
 	}
 	
 }

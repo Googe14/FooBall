@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class FooBall_Physics {
 
@@ -231,13 +232,14 @@ public class FooBall_Physics {
 			int py = (int)vy;
 			//Get target distance apart of balls and set it as difference
 			int td = r1+r2;
-			td = td-(int)Math.sqrt(px*px + py*py);
-			
-			//Get length of vector
-			float vl = (float)Math.sqrt((vx*vx + vy*vy));
-			//Turn into unit vector
-			vx = vx/vl;
-			vy = vy/vl;
+			td -= (int)Math.sqrt(px*px + py*py) - 4;
+			if(vx != 0 || vy != 0) {
+				//Get length of vector
+				float vl = (float)Math.sqrt((vx*vx + vy*vy));
+				//Turn into unit vector
+				vx = vx/vl;
+				vy = vy/vl;
+			}
 			
 			//Move balls out of each other
 			target.setPos(target.getX()+(vx*td/2), target.getY()+(vy*td/2));
@@ -254,7 +256,7 @@ public class FooBall_Physics {
 			int y1 = ball1.getY();
 			int y2 = ball2.getY();
 			//Get the distance between those coordinates
-			int distance = (int)Math.sqrt((Math.pow((double)(x2-x1), 2)+Math.pow((double)(y2-y1), 2)));
+			int distance = (int)Math.sqrt((x2-x1)*(x2-x1)+ (y2-y1)*(y2-y1));
 			//Check if they are touching
 			if(distance <= ball1.getRadius() + ball2.getRadius()) {
 				//Move balls out of each other as not to get stuck inside each other
@@ -270,8 +272,8 @@ public class FooBall_Physics {
 		
 		
 		//Check if all the balls have collided
-		void checkCollisions(FooBall_Ball[] ball, boolean realistic) {
-			int n = ball.length;
+		void checkCollisions(ArrayList<FooBall_Ball> ball, boolean realistic) {
+			int n = ball.size();
 			//Got to each element of the array
 			for(int i=0; i<n; i++) {
 				//Go to each element on the array again
@@ -281,9 +283,36 @@ public class FooBall_Physics {
 						break;
 					}
 					
-					compareBalls(ball[i], ball[j], realistic);
+					compareBalls(ball.get(i), ball.get(j), realistic);
 				}
 			}
+		}
+		
+		//Check if ball in x,y position is overlapping with any other ball.
+		boolean checkForSpace(ArrayList<FooBall_Ball> ball, FooBall_Ball target) {
+			//Get position of target ball
+			int x1 = target.getX();
+			int y1 = target.getY();
+			
+			for(int i=0; i<ball.size(); i++) {
+				if(ball.get(i).getId() == 0) {
+					break;
+				}
+					//Get position of other balls
+					int x2 = ball.get(i).getX();
+					int y2 = ball.get(i).getY();
+					
+					//Get the distance between those coordinates
+					int distance = (int)Math.sqrt((x2-x1)*(x2-x1)+ (y2-y1)*(y2-y1));
+					//Check if they are touching
+					if(distance <= ball.get(i).getRadius() + target.getRadius() && target.getId() != ball.get(i).getId()) {
+						return false;
+					}
+				
+			}
+			//Balls are not touching any others
+			return true;
+			
 		}
 	
 	

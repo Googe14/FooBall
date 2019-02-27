@@ -12,33 +12,37 @@ public class FooBall_UserPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 	//Label 
-	JLabel settings = new JLabel("Settings:");
+	JLabel lab_Settings = new JLabel("Settings:");
 	
 	//Make label, and radio buttons for the gamemode
-	JLabel gameModLab = new JLabel("Game Mode:");
+	JLabel lab_GameMod = new JLabel("Game Mode:");
 	//Make button group to make radio buttons work together
-	ButtonGroup gameModGrp = new ButtonGroup();
-	JRadioButton gameModNorm = new JRadioButton("Normal");
-	JRadioButton gameModString = new JRadioButton("String");
+	ButtonGroup grp_gameMod = new ButtonGroup();
+	JRadioButton rBut_gameModNorm = new JRadioButton("Normal");
+	JRadioButton rBut_gameModString = new JRadioButton("String");
 	
-	JLabel massEditLab = new JLabel("Change ");
+	JLabel lab_SizeEdit = new JLabel("Change Size");
+	
+	
 	/*
-	 * Radio - Gamemode
-	 * 		Normal
-	 * 		String
 	 * Text input - Number of balls
+	 * 
+	 * 
+	 * Slider - Possible values
 	 * 
 	 * Radio - Choose thing to change
 	 * 		Gravity
 	 * 		Weight
-	 * Radio - Choose other thing to change
-	 * 		Accel Rate
-	 * 		Decell Rate
+	 * 
+	 * Slider for Weight/Gravity
+	 * 
 	 * 
 	 * 3x Text Input - Background colour
 	 * 		R:G:B: - background colour
 	 * 
+	 * 
 	 * Check box - Collisions
+	 * Check box - Realistic collisions
 	 */
 	
 	

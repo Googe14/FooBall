@@ -20,6 +20,7 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 - Dynamically alter number of balls (?)
 - <s>Ball collisions</s>
 - <s>Ball bouncing off each other</s>
+- Add realistic bouncing of balls
 
 ## Details of game
 Balls will react to gravity and manipulate themselves in terms of movement

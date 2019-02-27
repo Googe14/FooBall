@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Point;
 
 public class FooBall_PhysicsObj {
 
@@ -7,9 +6,6 @@ public class FooBall_PhysicsObj {
 	
 	//Create size of ball
 	protected int size = 20;
-
-	protected int width;
-	protected int height;
 	
 	//Boolean to prevent ball from colliding with more than 1 other ball and creating energy that shouldn't exist
 	boolean collided = false;
@@ -19,18 +15,20 @@ public class FooBall_PhysicsObj {
 	
 	protected float gravity = 1f;
 	//Create rate of speed (in/de)crease
-	protected float decay = 0.2f;
+	protected float decay = 1f;
 	protected float accelRate = 1f;
 	
-	protected float mass = size/20;
+	protected float density = 1;
+
+	protected float mass = size*density/20;
 	
 	//Set bounds for object to collide with
 	protected int xBounds;
 	protected int yBounds;
 	
 	//Create position
-	protected float x;
-	protected float y;
+	protected float x = 0;
+	protected float y = 0;
 	
 	//Create movement
 	protected float xVel = 0f;
@@ -39,6 +37,16 @@ public class FooBall_PhysicsObj {
 	//Create acceleration
 	protected float xAcc = 0;
 	protected float yAcc = 0;
+	
+	public void setSize(int size) {
+		this.size = size;
+		mass = size*density/20;
+	}
+	
+	public void setDensity(float density) {
+		this.density = density;
+		mass = size*density/20;
+	}
 	
 	//Setters for details of object
 	public void setPos(float x, float y) {
@@ -100,41 +108,42 @@ public class FooBall_PhysicsObj {
 		xVel += xAcc*accelRate;
 		yVel += yAcc*accelRate;
 		
-		//make acceleration opposite the balls direction to slow it down
 		if(!collided) {
-			xAcc = xVel * -0.01f * decay * mass;
-			yAcc = yVel * -0.01f * decay * mass;
-			//Apply gravity
-			yAcc += gravity/2;
+		//make acceleration opposite the balls direction to slow it down
+		xAcc = xVel * -0.01f * decay;
+		yAcc = yVel * -0.01f * decay;
 		} else {
 			xAcc = 0;
 			yAcc = 0;
 		}
 		
+		//Apply gravity
+		yAcc += gravity/2;
+
 		//Move the ball
 		y += yVel;
 		x += xVel;
 		
 		//Bounce the ball
 		//Bounce on Right side
-		if(x >= xBounds-width) {
-			xVel *= -1;
-			x = xBounds-width;
+		if(x >= xBounds-size/2) {
+			xVel *= -0.95;
+			x = xBounds-size/2;
 		}
 		//left side
-		if(x <= 0) {
-			xVel *= -1;
-			x = 0;
+		if(x <= size/2) {
+			xVel *= -0.95;
+			x = size/2;
 		}
 		//bottom
-		if(y >= yBounds-width) {
-			yVel *= -1;
-			y = yBounds-height;
+		if(y >= yBounds-size/2) {
+			yVel *= -0.95;
+			y = yBounds-size/2;
 		}
 		//top
-		if(y <= 0) {
-			yVel *= -1;
-			y = 0;
+		if(y <= size/2) {
+			yVel *= -0.95;
+			y = size/2;
 		}
 		collided = false;
 

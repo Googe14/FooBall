@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -127,18 +127,18 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
 		//Paint Ball - iterate through each ball to paint it
-		for(int i=0; i<ball.length; i++) {
+		for(int i=0; i<ball.size(); i++) {
 			//Set colour to that of the select ball
-			g.setColor(ball[i].getColour());
+			g.setColor(ball.get(i).getColour());
 			//Check if mouse is clicked down
 			if(clicked) {
 				//If so, draw a line connecting the mouse to the ball - before drawing ball so that the ball appears on the line
-				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball[i].getX() + ball[i].getRadius()), (int)(ball[i].getY() + ball[i].getRadius()));
+				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball.get(i).getX()), (int)(ball.get(i).getY()));
 			}
 			//Draw ball
-			g.fillOval(ball[i].getX(), ball[i].getY(), ball[i].getRadius()*2, ball[i].getRadius()*2);
+			g.fillOval(ball.get(i).getX()-ball.get(i).getRadius(), ball.get(i).getY()-ball.get(i).getRadius(), ball.get(i).getRadius()*2, ball.get(i).getRadius()*2);
 		}
-		//Sync graphics toolkit - smoothes repeated drawing when using some linux drivers
+		//Sync graphics toolkit - smoothes looped drawing when using some graphical drivers on linux machines
     	Toolkit.getDefaultToolkit().sync();
 	}
 	
@@ -151,62 +151,76 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	boolean inInit = true;
 	//Stor if bounces are realistic or direct energy transfer
 	boolean realistic;
+	//Number of balls to spawn
+	int numBalls = 100;
 	
 	FooBall_Physics physics = new FooBall_Physics();
 	
 	//Create array of balls for the game
-	FooBall_Ball[] ball;
+	FooBall_Ball[] ball2;
+	ArrayList<FooBall_Ball> ball = new ArrayList<FooBall_Ball>();
 	//Point to store position of mouse
 	Point mouse;
 
 	//Method to update the game positions and whatever
 	void update() {
-		//Check if mouse is held down to make box accelerate towards it
-		if(clicked) {
-			
-		}
-		physics.checkCollisions(ball, realistic);
-		for(int i=0; i<ball.length; i++) {
+		//Loop through all balls
+		for(int i=0; i<ball.size(); i++) {
 			mouse = MouseInfo.getPointerInfo().getLocation();
+			//Check if mouse is held down to make box accelerate towards it
 			if(clicked) {
 
-				ball[i].genAccel(mouse, this.getLocationOnScreen());
+				ball.get(i).genAccel(mouse, this.getLocationOnScreen());
 			}
 			
 			//Move balls
-			ball[i].move();
+			ball.get(i).move();
 			
-			//ball[i].randomiseColour();
+			//ball.get(i).randomiseColour();
 		}
-		
+		physics.checkCollisions(ball, realistic);
+	}
+	
+	public void setBalls(int numBalls) {
+		this.numBalls = numBalls;
 	}
 	
 	//Initialise panel and create everything it needs
 	public void init() {
+		
 		//Set realistic bounces
 		realistic = true;
 		//Set length of ball array
-		ball = new FooBall_Ball[10];
 		
 		//Add mouse listener to get if it's clicked or not
 		this.addMouseListener(evt);
 		
 		//Iterate through every ball
-		for(int i=0; i<ball.length; i++) {
+		for(int i=0; i<ball.size(); i++) {
 			//Create a new ball for each position in the array
-			ball[i] = new FooBall_Ball();
-			ball[i].init();
-			//Set the position of that ball randomly
-			ball[i].setPos((int)(Math.random()*(this.getWidth()-(ball[i].getRadius()*2))), (int)(Math.random()*(this.getHeight()-(ball[i].getRadius()*2))));
-						
+			ball.add(new FooBall_Ball());
+			ball.get(i).init(i+1);
+			boolean spaceAvailable = false;
+			while(!spaceAvailable) {
+				//Set the position of that ball randomly
+				ball.get(i).setPos((int)(Math.random()*(this.getWidth()-(ball.get(i).getRadius()*2))), (int)(Math.random()*(this.getHeight()-(ball.get(i).getRadius()*2))));
+				//Check if there is space in that spot to hold the ball
+				spaceAvailable = physics.checkForSpace(ball, ball.get(i));
+				System.out.println(spaceAvailable);
+			}
 			//Randomise the colour of the ball 
-			ball[i].randomiseColour();
+			ball.get(i).randomiseColour();
 			//Set bounds for that ball to bounce off
-			ball[i].setBounds(this.getWidth(), this.getHeight());
+			ball.get(i).setBounds(this.getWidth(), this.getHeight());
 			
-			//ball[i].weight = (float) Math.random()*4;
+			ball.get(i).setRadius((int)(Math.random()*20+10));
+			//ball.get(i).weight = (float) Math.random()*4;
 		}
-		
+		//Was used to debug physics
+		/*
+		ball[0].setRadius(12);
+		ball[1].setRadius(30);
+		*/
 	}
 	
 	
