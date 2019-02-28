@@ -1,8 +1,11 @@
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSlider;
+import javax.swing.JTextArea;
 
 
 //Create another JPanel to hold all the user controlled data
@@ -14,37 +17,37 @@ public class FooBall_UserPanel extends JPanel{
 	//Label 
 	JLabel lab_Settings = new JLabel("Settings:");
 	
-	//Make label, and radio buttons for the gamemode
-	JLabel lab_GameMod = new JLabel("Game Mode:");
-	//Make button group to make radio buttons work together
-	ButtonGroup grp_gameMod = new ButtonGroup();
-	JRadioButton rBut_gameModNorm = new JRadioButton("Normal");
-	JRadioButton rBut_gameModString = new JRadioButton("String");
+	JLabel lab_balls = new JLabel("Balls: ");
+	JTextArea ta_balls = new JTextArea("10");
 	
-	JLabel lab_SizeEdit = new JLabel("Change Size");
+	JLabel lab_effects = new JLabel("Select balls:");
+	ButtonGroup bg_effects = new ButtonGroup();
+	JCheckBox cb_effects_global = new JCheckBox("All");
+	JCheckBox cb_effects_single = new JCheckBox("Individual");
+	
+	JLabel lab_mode = new JLabel("Mouse mode");
+	ButtonGroup bg_mode = new ButtonGroup();
+	JCheckBox cb_mode_string = new JCheckBox("String");
+	JCheckBox cb_mode_repel = new JCheckBox("Repel");
+	JCheckBox cb_mode_poolCue = new JCheckBox("Pool Cue");
+	JCheckBox cb_mode_grab = new JCheckBox("Grab"); //Will only be active while effects are local
 	
 	
-	/*
-	 * Text input - Number of balls
-	 * 
-	 * 
-	 * Slider - Possible values
-	 * 
-	 * Radio - Choose thing to change
-	 * 		Gravity
-	 * 		Weight
-	 * 
-	 * Slider for Weight/Gravity
-	 * 
-	 * 
-	 * 3x Text Input - Background colour
-	 * 		R:G:B: - background colour
-	 * 
-	 * 
-	 * Check box - Collisions
-	 * Check box - Realistic collisions
-	 */
+	JLabel lab_gravity = new JLabel("Gravity");
+	JSlider slide_gravity = new JSlider();
+	//TODO Format sliders
 	
+	JLabel lab_mouseStrength = new JLabel("Mouse Strength");
+	JSlider slide_mouseStrength = new JSlider();
+	
+	JLabel lab_colour = new JLabel("Colour: ");
+	JCheckBox cb_backgroundColour = new JCheckBox("Background");
+	
+	JLabel lab_rgb = new JLabel("R:\tG:\tB:");
+	
+	JCheckBox cb_collisions = new JCheckBox("Collisions");
+	JCheckBox cb_realisticCollisions = new JCheckBox("Realistic Collisions");
+
 	
 	public void init() {
 		//Create border
