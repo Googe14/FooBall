@@ -46,6 +46,7 @@ public class FooBall_UserPanel extends JPanel{
 	JRadioButton rb_mode_string 	= new JRadioButton("String");
 	JRadioButton rb_mode_repel 		= new JRadioButton("Repel");
 	JRadioButton rb_mode_poolCue 	= new JRadioButton("Pool Cue");
+	JRadioButton rb_mode_select		= new JRadioButton("Select");
 	JRadioButton rb_mode_grab 		= new JRadioButton("Grab"); //Will only be active while effects are local
 	
 	//Gravity
@@ -130,10 +131,12 @@ public class FooBall_UserPanel extends JPanel{
 		rb_effects_global.setSelected(true);
 		
 		this.add(lab_mode);
+		this.add(rb_mode_select);
 		this.add(rb_mode_grab);
 		this.add(rb_mode_string);
 		this.add(rb_mode_repel);
 		this.add(rb_mode_poolCue);
+		bg_mode.add(rb_mode_select);
 		bg_mode.add(rb_mode_grab);
 		bg_mode.add(rb_mode_poolCue);
 		bg_mode.add(rb_mode_repel);
