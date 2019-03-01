@@ -177,7 +177,7 @@ public class FooBall_Physics {
 			int y2 = target.getY();
 			//Get ball masses
 			float m1 = ball1.getMass();
-			float m2 = ball1.getMass();
+			float m2 = target.getMass();
 			//Get ball velocities
 			float v1x = ball1.getVelX();
 			float v1y = ball1.getVelY();

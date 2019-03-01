@@ -1,3 +1,5 @@
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 public class FooBall_App {
 	
@@ -11,7 +13,16 @@ public class FooBall_App {
 		String name = "FooBall";
 		
 		
-		
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
 		//Create Frame/Window
 		FooBall_Frame frame = new FooBall_Frame();
 		//Initialize frame and create panels o go on it
