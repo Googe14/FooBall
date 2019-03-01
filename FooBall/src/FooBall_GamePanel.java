@@ -40,7 +40,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
             runner = null;
         }
     }
-    //Code that will be run when the new Thread is started
+    //Will be run when the new Thread is started
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -206,25 +206,9 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		
 		//Iterate through every ball
 		for(int i=0; i<numBalls; i++) {
-
-			//Create a new ball for each position in the array
-			ball.add(i, new FooBall_Ball());
-			ball.get(i).init(i);
-			boolean spaceAvailable = false;
-			while(!spaceAvailable) {
-				//Set the position of that ball randomly
-				ball.get(i).setPos((int)(Math.random()*(this.getWidth()-(ball.get(i).getRadius()*2))+ball.get(i).getRadius()), (int)(Math.random()*(this.getHeight()-(ball.get(i).getRadius()*2))+ball.get(i).getRadius()));
-				//Check if there is space in that spot to hold the ball
-				spaceAvailable = physics.checkForSpace(ball, ball.get(i));
-			}
-			//Randomise the colour of the ball 
-			ball.get(i).randomiseColour();
-			//Set bounds for that ball to bounce off
-			ball.get(i).setBounds(this.getWidth(), this.getHeight());
-			
-			ball.get(i).setRadius((int)(Math.random()*20+10));
-			//ball.get(i).weight = (float) Math.random()*4;
+			addBall();
 		}
+		
 		//Was used to debug physics
 		/*
 		ball[0].setRadius(12);
@@ -232,6 +216,40 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		*/
 	}
 	
+	
+	void addBall() {
+		ball.add(new FooBall_Ball());
+		ball.get(ball.size()-1).init(ball.size()-1);
+		boolean spaceAvailable = false;
+		while(!spaceAvailable) {
+			//Set the position of that ball randomly
+			ball.get(ball.size()-1).setPos((int)(Math.random()*(this.getWidth()-(ball.get(ball.size()-1).getRadius()*2))+ball.get(ball.size()-1).getRadius()), (int)(Math.random()*(this.getHeight()-(ball.get(ball.size()-1).getRadius()*2))+ball.get(ball.size()-1).getRadius()));
+			//Check if there is space in that spot to hold the ball
+			spaceAvailable = physics.checkForSpace(ball, ball.get(ball.size()-1));
+		}
+		ball.get(ball.size()-1).randomiseColour();
+		//Set bounds for that ball to bounce off
+		ball.get(ball.size()-1).setBounds(this.getWidth(), this.getHeight());
+		ball.get(ball.size()-1).setRadius((int)(Math.random()*20+10));
+	}
+	
+	public void setNumBalls(int number) {
+		//Check if we are increasing or reducing number of balls
+		if(number > ball.size()) {
+			//Loop for as long as is required to reach correct number of balls
+			for(int i = number; i>ball.size(); i--) {
+				addBall();
+			}
+			
+		} else if (number < ball.size()) {
+			
+			for(int i = number; i<ball.size();i++) {
+				ball.remove(ball.size()-1);
+			}
+			
+		}
+		
+	}
 	
 	//Mouse Listener event to check for mouse click
 	MouseListener evt = new MouseListener() {

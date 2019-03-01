@@ -42,7 +42,7 @@ public class FooBall_Frame extends JFrame{
 		userPane.setLocation(dimensions[0], 0);
 		//Initialise panels
 		pane.init();
-		userPane.init();
+		userPane.init(change);
 		
 		//Add panels to Frame
 		this.add(pane);
@@ -72,7 +72,21 @@ public class FooBall_Frame extends JFrame{
 		public void stateChanged(ChangeEvent arg0) {
 			// TODO Auto-generated method stub
 			
-			
+			if(arg0.getSource() == userPane.spin_balls) {
+				pane.setNumBalls((int) userPane.spin_balls.getValue());
+			} else if (arg0.getSource() == userPane.rb_effects_global) {
+			} else if (arg0.getSource() == userPane.rb_effects_local) {
+			} else if (arg0.getSource() == userPane.rb_mode_string) {
+			} else if (arg0.getSource() == userPane.rb_mode_repel) {
+			} else if (arg0.getSource() == userPane.rb_mode_poolCue) {
+			} else if (arg0.getSource() == userPane.rb_mode_grab) {
+			} else if (arg0.getSource() == userPane.slide_gravity) {
+			} else if (arg0.getSource() == userPane.slide_mouseStrength) {
+			} else if (arg0.getSource() == userPane.slider_reset) {
+			} else if (arg0.getSource() == userPane.cb_collisions) {
+			} else if (arg0.getSource() == userPane.cb_realisticCollisions) {
+
+			}
 			
 		}};
 	
