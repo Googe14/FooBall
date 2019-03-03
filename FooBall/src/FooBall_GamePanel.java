@@ -74,7 +74,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	    sleepTime = 0;
 	 
 	    while (isRunning) {
-	    	this.requestFocus();
+	    	//this.requestFocus();
 	        // in the surface
 	        try {
 	                beginTime = System.currentTimeMillis();
@@ -242,8 +242,8 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			}
 			
 		} else if (number < ball.size()) {
-			
-			for(int i = number; i<ball.size();i++) {
+			int size = ball.size();
+			for(int i = number; i<size;i++) {
 				ball.remove(ball.size()-1);
 			}
 			
