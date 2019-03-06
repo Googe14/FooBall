@@ -1,5 +1,9 @@
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.EventListener;
+
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -42,7 +46,7 @@ public class FooBall_Frame extends JFrame{
 		userPane.setLocation(dimensions[0], 0);
 		//Initialise panels
 		pane.init();
-		userPane.init(change);
+		userPane.init(evt, change);
 		
 		//Add panels to Frame
 		this.add(pane);
@@ -69,27 +73,35 @@ public class FooBall_Frame extends JFrame{
 	ChangeListener change = new ChangeListener() {
 		//When something changes, code in stateChanged will run
 		@Override
-		public void stateChanged(ChangeEvent arg0) {
+		public void stateChanged(ChangeEvent e) {
 			// TODO Auto-generated method stub
 			
-			if(arg0.getSource() == userPane.spin_balls) {
+			if(e.getSource() == userPane.spin_balls) {
 				pane.setNumBalls((int) userPane.spin_balls.getValue());
-			} else if (arg0.getSource() == userPane.rb_effects_global) {
-			} else if (arg0.getSource() == userPane.rb_effects_local) {
-			} else if (arg0.getSource() == userPane.rb_mode_string) {
-			} else if (arg0.getSource() == userPane.rb_mode_repel) {
-			} else if (arg0.getSource() == userPane.rb_mode_poolCue) {
-			} else if (arg0.getSource() == userPane.rb_mode_grab) {
-			} else if (arg0.getSource() == userPane.slide_gravity) {
-			} else if (arg0.getSource() == userPane.slide_mouseStrength) {
-			} else if (arg0.getSource() == userPane.slider_reset) {
-			} else if (arg0.getSource() == userPane.cb_collisions) {
-			} else if (arg0.getSource() == userPane.cb_realisticCollisions) {
-
-			}
+			} else if (e.getSource() == userPane.slide_gravity) {
+			} else if (e.getSource() == userPane.slide_mouseStrength) {
+			} 
 			
 		}};
 	
-	
+	ActionListener evt = new ActionListener() {
+		
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == userPane.rb_effects_global) {
+			} else if (e.getSource() == userPane.rb_effects_local) {
+			} else if (e.getSource() == userPane.rb_mode_string) {
+			} else if (e.getSource() == userPane.rb_mode_repel) {
+			} else if (e.getSource() == userPane.rb_mode_poolCue) {
+			} else if (e.getSource() == userPane.rb_mode_grab) {
+			} else if (e.getSource() == userPane.cb_collisions) {
+			} else if (e.getSource() == userPane.cb_realisticCollisions) {
+			} else if (e.getSource() == userPane.reset) {
+				pane.reset();
+			} else if (e.getSource() == userPane.slider_reset) {
+				userPane.setSliders();
+			}
+		}
+		
+	};
 	
 }

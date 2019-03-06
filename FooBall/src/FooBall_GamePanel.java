@@ -31,12 +31,12 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
         if (runner == null) {
             runner = new Thread(this);
             runner.start();
+        } else {
         }
     }
 	//Used to safely and properly stop the Thread
     public void stop() {
         if (runner != null) {
-            //runner.stop();
             runner = null;
         }
     }
@@ -75,7 +75,6 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	 
 	    while (isRunning) {
 	    	//this.requestFocus();
-	        // in the surface
 	        try {
 	                beginTime = System.currentTimeMillis();
 	                framesSkipped = 0;  // resetting the frames skipped
@@ -154,6 +153,11 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	boolean realistic;
 	//Number of balls to spawn
 	int numBalls = 10;
+	//Scope of effects of 
+	Boolean globalScope = true;
+	//Mode of mouse
+	//Possible values: string, grab, repel, slingshot
+	String mode = "string";
 	
 	int width = this.getWidth();
 	int height = this.getHeight();
@@ -161,7 +165,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	FooBall_Physics physics = new FooBall_Physics();
 	
 	//Create array of balls for the game
-	ArrayList<FooBall_Ball> ball = new ArrayList<>();
+	ArrayList<FooBall_Ball> ball;
 	//Point to store position of mouse
 	Point mouse;
 
@@ -184,6 +188,26 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		physics.checkCollisions(ball, realistic);
 	}
 	
+	public void updateGrav() {
+		
+	}
+	
+	public void reset() {
+		//Remove mouse listener
+		this.removeMouseListener(evt);
+		//Break game loop
+		isRunning = false;
+		//Sleep current thread to give time for gameloop thread to quit
+		try {
+			Thread.sleep(100);
+		} catch(Exception e) {}
+		//Reset game panel and restart thread
+		init();
+		runner = null;
+		start();
+		
+	}
+	
 	public void setBalls(int numBalls) {
 		this.numBalls = numBalls;
 	}
@@ -197,6 +221,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	
 	//Initialise panel and create everything it needs
 	public void init() {
+		ball = new ArrayList<>();
 		//Set realistic bounces
 		realistic = true;
 		//Set length of ball array
@@ -217,9 +242,12 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	}
 	
 	
+	
 	void addBall() {
+		//Create new ball
 		ball.add(new FooBall_Ball());
 		ball.get(ball.size()-1).init(ball.size()-1);
+		//Set position of ball randomly, making sure it is not inside any other balls
 		boolean spaceAvailable = false;
 		while(!spaceAvailable) {
 			//Set the position of that ball randomly
@@ -233,18 +261,24 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		ball.get(ball.size()-1).setRadius((int)(Math.random()*20+10));
 	}
 	
+	//Adjust number of balls to be a specific number
 	public void setNumBalls(int number) {
+		
+		if(number == 0) {
+			ball = new ArrayList<FooBall_Ball>();
+			return;
+		}
+		int size = ball.size();
 		//Check if we are increasing or reducing number of balls
-		if(number > ball.size()) {
+		if(number > size) {
 			//Loop for as long as is required to reach correct number of balls
-			for(int i = number; i>ball.size(); i--) {
+			for(int i = number; i>size; i--) {
 				addBall();
 			}
 			
-		} else if (number < ball.size()) {
-			int size = ball.size();
+		} else if (number < size) {
 			for(int i = number; i<size;i++) {
-				ball.remove(ball.size()-1);
+				ball.remove(size-i);
 			}
 			
 		}

@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.util.EventListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -67,6 +69,8 @@ public class FooBall_UserPanel extends JPanel{
 	//Size for text areas
 	Dimension taSize = new Dimension(100, 30);
 	
+	JButton reset = new JButton("Reset");
+	
 	//Get value from position on slider (slider scale logarithmically)
 	float logslider(int position) {
 		int minp = 0;
@@ -81,7 +85,7 @@ public class FooBall_UserPanel extends JPanel{
 	}
 	//Get position on slider from value 
 	int logposition(int value) {
-		int minp = 0;
+		int minp = 1;
 		int maxp = 100;
 		
 		int minv = (int)Math.log(0.01);
@@ -93,7 +97,7 @@ public class FooBall_UserPanel extends JPanel{
 	}
 	
 	//Set positions, groups, changelisteners etc for panel components
-	public void init(ChangeListener chng) {
+	public void init(ActionListener evt, ChangeListener chng) {
 		//Create border
 		this.setBorder(BorderFactory.createLoweredSoftBevelBorder());
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -111,8 +115,8 @@ public class FooBall_UserPanel extends JPanel{
 		bg_effects.add(rb_effects_global);
 		bg_effects.add(rb_effects_local);
 		rb_effects_global.setSelected(true);
-		rb_effects_global.addChangeListener(chng);
-		rb_effects_local.addChangeListener(chng);
+		rb_effects_global.addActionListener(evt);
+		rb_effects_local.addActionListener(evt);
 		
 		this.add(lab_mode);
 		this.add(rb_mode_grab);
@@ -124,36 +128,46 @@ public class FooBall_UserPanel extends JPanel{
 		bg_mode.add(rb_mode_repel);
 		bg_mode.add(rb_mode_string);
 		rb_mode_string.setSelected(true);
-		rb_mode_grab.addChangeListener(chng);
-		rb_mode_string.addChangeListener(chng);
-		rb_mode_repel.addChangeListener(chng);
-		rb_mode_poolCue.addChangeListener(chng);
+		rb_mode_grab.addActionListener(evt);
+		rb_mode_string.addActionListener(evt);
+		rb_mode_repel.addActionListener(evt);
+		rb_mode_poolCue.addActionListener(evt);
 
 		this.add(lab_gravity);
 		this.add(slide_gravity);
-		slide_gravity.setValue(logposition(1));
 		slide_gravity.setMajorTickSpacing(10);
 		slide_gravity.setPaintTicks(true);
 		slide_gravity.addChangeListener(chng);
 		
 		this.add(lab_mouseStrength);
 		this.add(slide_mouseStrength);
-		slide_mouseStrength.setValue(logposition(1));
 		slide_mouseStrength.setPaintTicks(true);
 		slide_mouseStrength.addChangeListener(chng);
 
+		setSliders();
+		
 		this.add(slider_reset);
-		slider_reset.addChangeListener(chng);
+		slider_reset.addActionListener(evt);
 		
 		this.add(lab_collisions);
 		this.add(cb_collisions);
 		this.add(cb_realisticCollisions);
-		cb_collisions.addChangeListener(chng);
-		cb_realisticCollisions.addChangeListener(chng);
+		cb_collisions.addActionListener(evt);
+		cb_realisticCollisions.addActionListener(evt);
 		cb_collisions.setSelected(true);
 		cb_realisticCollisions.setSelected(true);
 		
+		this.add(reset);
+		reset.addActionListener(evt);
+		
 	}
+	
+	//Set position of sliders to game default
+	public void setSliders() {
+		slide_gravity.setValue(logposition(1));
+		slide_mouseStrength.setValue(logposition(1));
+	}
+	
 	
 	/*TODO
 	 * Add:
