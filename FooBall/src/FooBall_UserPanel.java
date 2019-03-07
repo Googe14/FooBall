@@ -34,7 +34,7 @@ public class FooBall_UserPanel extends JPanel{
 	
 	//Balls
 	JLabel lab_balls = new JLabel("<html><b>Balls:</b></html>");
-	SpinnerNumberModel spinm_balls = new SpinnerNumberModel(10, 0, 100, 1);
+	SpinnerNumberModel spinm_balls = new SpinnerNumberModel(10, 0, 1000, 1);
 	JSpinner spin_balls = new JSpinner(spinm_balls);
 	
 	//Effects
@@ -168,6 +168,9 @@ public class FooBall_UserPanel extends JPanel{
 		slide_mouseStrength.setValue(logposition(1));
 	}
 	
+	public void setBalls(int numBalls) {
+		spin_balls.setValue(numBalls);
+	}
 	
 	/*TODO
 	 * Add:

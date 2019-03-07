@@ -94,9 +94,12 @@ public class FooBall_Frame extends JFrame{
 			} else if (e.getSource() == userPane.rb_mode_poolCue) {
 			} else if (e.getSource() == userPane.rb_mode_grab) {
 			} else if (e.getSource() == userPane.cb_collisions) {
+				pane.setCollisions(userPane.cb_collisions.isSelected());
 			} else if (e.getSource() == userPane.cb_realisticCollisions) {
+				pane.setRealistic(userPane.cb_realisticCollisions.isSelected());
 			} else if (e.getSource() == userPane.reset) {
 				pane.reset();
+				userPane.setBalls(pane.getBalls());
 			} else if (e.getSource() == userPane.slider_reset) {
 				userPane.setSliders();
 			}

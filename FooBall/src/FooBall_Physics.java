@@ -4,10 +4,10 @@ public class FooBall_Physics {
 
 	public void transferEnergy(FooBall_PhysicsObj obj1, FooBall_PhysicsObj obj2) {
 		//Original force swap of 2 balls
-		obj1.applyForce(obj2.getVelX(), obj2.getVelY());
+		obj1.applyForce(obj2.getVelX()*obj2.getMass(), obj2.getVelY()*obj2.getMass());
 		obj2.setVel(0, 0);
-		
-		obj2.applyForce(obj1.getVelX(), obj1.getVelY());
+		               
+		obj2.applyForce(obj1.getVelX()*obj1.getMass(), obj1.getVelY()*obj1.getMass());
 		obj1.setVel(0, 0);
 	}
 	
@@ -205,8 +205,8 @@ public class FooBall_Physics {
 			
 			//Bounce balls
 			//Transfer force to other balls
-			ball1.applyForce(tx*dpTan1 + nx * fm1, ty*dpTan1 + nx * fm1);
-			target.applyForce(tx*dpTan2 + nx * fm2, ty*dpTan2 + nx * fm2);
+			ball1.applyAcc(tx*dpTan1 + nx * fm1, ty*dpTan1 + nx * fm1);
+			target.applyAcc(tx*dpTan2 + nx * fm2, ty*dpTan2 + nx * fm2);
 			
 			//Reset velocity as it has been transferred to another ball (and avoid multiple collisions from creating energy)
 			ball1.setVel(0, 0);

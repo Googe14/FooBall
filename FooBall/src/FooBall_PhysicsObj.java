@@ -87,9 +87,14 @@ public class FooBall_PhysicsObj {
 	}
 
 	//Apply force in direction
-	public void applyForce(float xForce, float yForce) {
+	public void applyAcc(float xForce, float yForce) {
 		xAcc += xForce;
 		yAcc += yForce;
+	}
+	//Apply force in direction
+	public void applyForce(float xForce, float yForce) {
+		xAcc += xForce/mass;
+		yAcc += yForce/mass;
 	}
 	public float getVelX() {
 		return xVel;

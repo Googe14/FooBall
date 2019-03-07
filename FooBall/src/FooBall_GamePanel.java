@@ -149,14 +149,17 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	boolean clicked = false;
 	//Boolean to check if game has initialised yet
 	boolean inInit = true;
-	//Stor if bounces are realistic or direct energy transfer
-	boolean realistic;
+	//if bounces are realistic or direct energy transfer
+	boolean realistic = true;
+	boolean collisions = true;
 	//Number of balls to spawn
 	int numBalls = 10;
 	//Scope of effects of 
-	Boolean globalScope = true;
+	Boolean global = true;
+	//Index of selected ball
+	int selected = 0;
 	//Mode of mouse
-	//Possible values: string, grab, repel, slingshot
+	//Possible values: string, grab, repel, slingshot, select
 	String mode = "string";
 	
 	int width = this.getWidth();
@@ -185,12 +188,22 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			
 			//ball.get(i).randomiseColour();
 		}
-		physics.checkCollisions(ball, realistic);
+		if(collisions) {
+			physics.checkCollisions(ball, realistic);
+		}
 	}
 	
 	public void updateGrav() {
 		
 	}
+	//Set type of bounce collisions etc
+	public void setRealistic(boolean realistic) {
+		this.realistic = realistic;
+	}
+	public void setCollisions(boolean collisions) {
+		this.collisions = collisions;
+	}
+	
 	
 	public void reset() {
 		//Remove mouse listener
@@ -205,16 +218,13 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		init();
 		runner = null;
 		start();
-		
 	}
 	
+	//Set default number of balls
 	public void setBalls(int numBalls) {
 		this.numBalls = numBalls;
 	}
-	
-	int rWidth;
-	int rHeight;
-	
+
 	public void setDims(Dimension dims) {
 		this.setSize(dims);
 	}
@@ -263,7 +273,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	
 	//Adjust number of balls to be a specific number
 	public void setNumBalls(int number) {
-		
+		setBalls(number);
 		if(number == 0) {
 			ball = new ArrayList<FooBall_Ball>();
 			return;
@@ -277,12 +287,24 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			}
 			
 		} else if (number < size) {
-			for(int i = number; i<size;i++) {
-				ball.remove(size-i);
+			//Break game loop
+			isRunning = false;
+			//Sleep current thread to give time for gameloop thread to quit
+			try {
+				Thread.sleep(50);
+			} catch(Exception e) {}
+			for(int i = size; i>number; i--) {
+				ball.remove(i-1);
 			}
-			
+			//Reset game panel and restart thread
+			runner = null;
+			start();
 		}
 		
+	}
+	
+	public int getBalls() {
+		return ball.size();
 	}
 	
 	//Mouse Listener event to check for mouse click
