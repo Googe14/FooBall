@@ -123,7 +123,8 @@ public class FooBall_PhysicsObj {
 		}
 		
 		//Apply gravity
-		yAcc += gravity/2;
+		//yAcc += gravity/2;
+		applyAcc(0, gravity/2);
 
 		//Move the ball
 		y += yVel;

@@ -257,6 +257,12 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		//Create new ball
 		ball.add(new FooBall_Ball());
 		ball.get(ball.size()-1).init(ball.size()-1);
+		
+		//Randomly set position of ball inside panel
+		ball.get(ball.size()-1).setPos((int)(Math.random()*(this.getWidth()-(ball.get(ball.size()-1).getRadius()*2))+ball.get(ball.size()-1).getRadius()), (int)(Math.random()*(this.getHeight()-(ball.get(ball.size()-1).getRadius()*2))+ball.get(ball.size()-1).getRadius()));
+		
+		//Redunadant since update to ball seperation algorithm
+		/*
 		//Set position of ball randomly, making sure it is not inside any other balls
 		boolean spaceAvailable = false;
 		while(!spaceAvailable) {
@@ -265,6 +271,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 			//Check if there is space in that spot to hold the ball
 			spaceAvailable = physics.checkForSpace(ball, ball.get(ball.size()-1));
 		}
+		*/
 		ball.get(ball.size()-1).randomiseColour();
 		//Set bounds for that ball to bounce off
 		ball.get(ball.size()-1).setBounds(this.getWidth(), this.getHeight());

@@ -77,6 +77,9 @@ public class FooBall_Frame extends JFrame{
 			// TODO Auto-generated method stub
 			
 			if(e.getSource() == userPane.spin_balls) {
+				if((int)userPane.spin_balls.getValue() > 200 && userPane.cb_collisions.isSelected()) {
+					userPane.spin_balls.setValue(200);
+				}
 				pane.setNumBalls((int) userPane.spin_balls.getValue());
 			} else if (e.getSource() == userPane.slide_gravity) {
 			} else if (e.getSource() == userPane.slide_mouseStrength) {
