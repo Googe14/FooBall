@@ -82,7 +82,10 @@ public class FooBall_Frame extends JFrame{
 				}
 				pane.setNumBalls((int) userPane.spin_balls.getValue());
 			} else if (e.getSource() == userPane.slide_gravity) {
+				pane.updateGrav(userPane.logslider(userPane.slide_gravity.getValue()));
 			} else if (e.getSource() == userPane.slide_mouseStrength) {
+				pane.updateMouse(userPane.logslider(userPane.slide_mouseStrength.getValue()));
+
 			} 
 			
 		}};

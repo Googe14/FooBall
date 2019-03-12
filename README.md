@@ -14,11 +14,8 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 
 - Create frame with balls
 - Have a side bar for settings
-- Have a game loop to time the events of the engine
-- Create a ball that will bounce around
-- Create many balls that will bounce around
-- Create many balls that will interact with each other when they collide
-- Add lots of settings for people to play around with
+- Create a number of balls that will bounce and interact with each other
+- Have a number of settings for people to play around with
 
 <h4>Interactions between balls</h3>
 
@@ -57,7 +54,7 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 Balls will interact with each other accordingly (bouncing, colliding etc) whilst any mouse input with the user inside the black panel will also affect the balls depending on what mode the user has selected.
 
 
-# Structure
+# Design Structure
 
 
 

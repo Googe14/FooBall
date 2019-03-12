@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 //Extend JPanel to make the game panel an independent object
 //Implements the Runnable object to allow certain code in this class to be run on a separate thread
@@ -135,6 +136,11 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 				//If so, draw a line connecting the mouse to the ball - before drawing ball so that the ball appears on the line
 				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball.get(i).getX()), (int)(ball.get(i).getY()));
 			}
+			
+			for(int j=0; j<points.size(); j++) {
+				//g.drawLine((int)(points.get(j).getX()), (int)(points.get(j).getY()), (int)(ball.get(i).getX()), (int)(ball.get(i).getY()));
+			}
+			
 			//Draw ball
 			g.fillOval(ball.get(i).getX()-ball.get(i).getRadius(), ball.get(i).getY()-ball.get(i).getRadius(), ball.get(i).getRadius()*2, ball.get(i).getRadius()*2);
 		}
@@ -171,37 +177,65 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 	ArrayList<FooBall_Ball> ball;
 	//Point to store position of mouse
 	Point mouse;
+	//Array list to save mouse points to
+	ArrayList<Point> points = new ArrayList<Point>();
+
 
 	//Method to update the game positions and whatever
 	void update() {
 		//Loop through all balls
 		for(int i=0; i<ball.size(); i++) {
+			
 			mouse = MouseInfo.getPointerInfo().getLocation();
-			//Check if mouse is held down to make box accelerate towards it
+			//Check if mouse is held down to make ball accelerate towards it
 			if(clicked) {
-
 				ball.get(i).genAccel(mouse, this.getLocationOnScreen());
+			}
+			
+			//Generate acceleration towards saved points
+			for(int j = 0; j < points.size(); j++) {
+				ball.get(i).genAccel(points.get(j), this.getLocation());
 			}
 			
 			//Move balls
 			ball.get(i).move();
 			
 			//ball.get(i).randomiseColour();
+			
+			if(ball.get(i) == null) {
+				ball.remove(i);
+			}
 		}
 		if(collisions) {
 			physics.checkCollisions(ball, realistic);
 		}
 	}
 	
-	public void updateGrav() {
-		
+	
+	public void updateGrav(float gravity) {
+		for(int i = 0; i < ball.size(); i++) {
+			ball.get(i).setGravity(gravity);
+		}
 	}
+	
+	public void updateMouse(float mouseStrength) {
+		for(int i = 0; i < ball.size(); i++) {
+			ball.get(i).setAccel(mouseStrength);
+		}
+	}
+	
+	
+	
 	//Set type of bounce collisions etc
 	public void setRealistic(boolean realistic) {
 		this.realistic = realistic;
 	}
 	public void setCollisions(boolean collisions) {
 		this.collisions = collisions;
+	}
+	
+	Point position() {
+		return this.getLocationOnScreen();
 	}
 	
 	
@@ -341,6 +375,11 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		public void mousePressed(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 			clicked = true;
+			
+			//Save right click position as saved spot
+			if(SwingUtilities.isRightMouseButton(arg0)) {
+				points.add(arg0.getPoint());
+			}
 		}
 
 		//Check if mouse has been un-pressed

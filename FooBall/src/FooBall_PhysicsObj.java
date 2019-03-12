@@ -16,7 +16,6 @@ public class FooBall_PhysicsObj {
 	protected float gravity = 1f;
 	//Create rate of speed (in/de)crease
 	protected float decay = 1f;
-	protected float accelRate = 1f;
 	
 	protected float density = 1;
 
@@ -48,6 +47,10 @@ public class FooBall_PhysicsObj {
 		mass = size*density/20;
 	}
 	
+	public void setGravity(float gravity) {
+		this.gravity = gravity;
+	}
+	
 	//Setters for details of object
 	public void setPos(float x, float y) {
 		this.x = x;
@@ -62,9 +65,8 @@ public class FooBall_PhysicsObj {
 		this.yAcc = yAcc;
 	}
 	
-	public void setRate(float decay, float accelRate) {
+	public void setResistance(float decay) {
 		this.decay = decay;
-		this.accelRate = accelRate;
 	}
 	
 	public void setBounds(int xBounds, int yBounds) {
@@ -110,8 +112,8 @@ public class FooBall_PhysicsObj {
 	//Move the fooball
 	public void move() {		
 		//Change velocity of ball
-		xVel += xAcc*accelRate;
-		yVel += yAcc*accelRate;
+		xVel += xAcc;
+		yVel += yAcc;
 		
 		if(!collided) {
 		//make acceleration opposite the balls direction to slow it down
