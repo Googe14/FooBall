@@ -55,10 +55,18 @@ public class FooBall_UserPanel extends JPanel{
 	JLabel lab_gravity = new JLabel("<html><b>Gravity:</b></html> ");
 	JSlider slide_gravity = new JSlider();
 	
+	//Gravity
+	JLabel lab_drag = new JLabel("<html><b>Air Resistance:</b></html> ");
+	JSlider slide_drag = new JSlider();
+	
 	//Mouse strength
 	JLabel lab_mouseStrength = new JLabel("<html><b>Mouse Strength:</b></html> ");
 	JSlider slide_mouseStrength = new JSlider();
 
+	//Mouse strength
+	JLabel lab_speed = new JLabel("<html><b>Speed:</b></html> ");
+	JSlider slide_speed = new JSlider();
+	
 	JButton slider_reset = new JButton("Slider Reset");
 
 	//Collisions
@@ -66,30 +74,49 @@ public class FooBall_UserPanel extends JPanel{
 	JCheckBox cb_collisions = new JCheckBox("Collisions");
 	JCheckBox cb_realisticCollisions = new JCheckBox("Realistic Collisions");
 
+	JLabel lab_drawing = new JLabel("<html><b>Drawing:</b></html> ");
+	JCheckBox cb_temp = new JCheckBox("Temperature");
+	JCheckBox cb_teth = new JCheckBox("Tethers");
+	
 	//Size for text areas
 	Dimension taSize = new Dimension(100, 30);
 	
 	JButton reset = new JButton("Reset");
 	
 	//Get value from position on slider (slider scale logarithmically)
-	float logslider(int position) {
-		int minp = 0;
-		int maxp = 100;
+	float logslider(int position, boolean frame) {
 		
+		if(position == 0) {
+			return 0;
+		}
+		
+		int minp = 1;
+		int maxp = 100;
+
 		int minv = (int)Math.log(0.01);
 		int maxv = (int)Math.log(100);
+		
+		if(frame) {
+			minv = (int)Math.log(500);
+			maxv = (int)Math.log(50000);
+		}
 		
 		float scale = (float)(maxv - minv) / (float)(maxp - minp);
 		
 		return (float) Math.exp(minv + scale*(position-minp));
 	}
 	//Get position on slider from value 
-	int logposition(int value) {
+	int logposition(int value, boolean frame) {
 		int minp = 1;
 		int maxp = 100;
 		
 		int minv = (int)Math.log(0.01);
 		int maxv = (int)Math.log(100);
+		
+		if(frame) {
+			minv = (int)Math.log(500);
+			maxv = (int)Math.log(50000);
+		}
 		
 		float scale = (float)(maxv - minv) / (float)(maxp - minp);
 		
@@ -141,8 +168,21 @@ public class FooBall_UserPanel extends JPanel{
 		
 		this.add(lab_mouseStrength);
 		this.add(slide_mouseStrength);
+		slide_mouseStrength.setMajorTickSpacing(10);
 		slide_mouseStrength.setPaintTicks(true);
 		slide_mouseStrength.addChangeListener(chng);
+		
+		this.add(lab_speed);
+		this.add(slide_speed);
+		slide_speed.setMajorTickSpacing(10);
+		slide_speed.setPaintTicks(true);
+		slide_speed.addChangeListener(chng);
+		
+		this.add(lab_drag);
+		this.add(slide_drag);
+		slide_drag.setMajorTickSpacing(10);
+		slide_drag.setPaintTicks(true);
+		slide_drag.addChangeListener(chng);
 
 		setSliders();
 		
@@ -157,6 +197,13 @@ public class FooBall_UserPanel extends JPanel{
 		cb_collisions.setSelected(true);
 		cb_realisticCollisions.setSelected(true);
 		
+		this.add(lab_drawing);
+		this.add(cb_temp);
+		this.add(cb_teth);
+		cb_temp.addActionListener(evt);
+		cb_teth.addActionListener(evt);
+		cb_teth.setSelected(true);
+		
 		this.add(reset);
 		reset.addActionListener(evt);
 		
@@ -164,8 +211,10 @@ public class FooBall_UserPanel extends JPanel{
 	
 	//Set position of sliders to game default
 	public void setSliders() {
-		slide_gravity.setValue(logposition(1));
-		slide_mouseStrength.setValue(logposition(1));
+		slide_gravity.setValue(logposition(1, false));
+		slide_mouseStrength.setValue(logposition(1, false));
+		slide_drag.setValue(logposition(1, false));
+		slide_speed.setValue(logposition(2000, true));
 	}
 	
 	public void setBalls(int numBalls) {

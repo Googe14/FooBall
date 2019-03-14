@@ -51,6 +51,10 @@ public class FooBall_PhysicsObj {
 		this.gravity = gravity;
 	}
 	
+	public void setDecay(float decay) {
+		this.decay = decay;
+	}
+	
 	//Setters for details of object
 	public void setPos(float x, float y) {
 		this.x = x;
@@ -135,22 +139,22 @@ public class FooBall_PhysicsObj {
 		//Bounce the ball
 		//Bounce on Right side
 		if(x >= xBounds-size/2) {
-			xVel *= -0.95;
+			xVel *= -1;
 			x = xBounds-size/2;
 		}
 		//left side
 		if(x <= size/2) {
-			xVel *= -0.95;
+			xVel *= -1;
 			x = size/2;
 		}
 		//bottom
 		if(y >= yBounds-size/2) {
-			yVel *= -0.95;
+			yVel *= -1;
 			y = yBounds-size/2;
 		}
 		//top
 		if(y <= size/2) {
-			yVel *= -0.95;
+			yVel *= -1;
 			y = size/2;
 		}
 		collided = false;

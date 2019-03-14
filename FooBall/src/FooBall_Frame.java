@@ -74,25 +74,40 @@ public class FooBall_Frame extends JFrame{
 		//When something changes, code in stateChanged will run
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			// TODO Auto-generated method stub
 			
+			//Check which slider was changed
 			if(e.getSource() == userPane.spin_balls) {
+				//Set number of balls
 				if((int)userPane.spin_balls.getValue() > 200 && userPane.cb_collisions.isSelected()) {
 					userPane.spin_balls.setValue(200);
 				}
 				pane.setNumBalls((int) userPane.spin_balls.getValue());
 			} else if (e.getSource() == userPane.slide_gravity) {
-				pane.updateGrav(userPane.logslider(userPane.slide_gravity.getValue()));
+				//Set gravity of balls
+				setPane();
 			} else if (e.getSource() == userPane.slide_mouseStrength) {
-				pane.updateMouse(userPane.logslider(userPane.slide_mouseStrength.getValue()));
-
-			} 
+				//Set mouse strength for balls
+				setPane();
+			} else if (e.getSource() == userPane.slide_drag) {
+				//Set Air resistance for balls
+				setPane();
+			} else if (e.getSource() == userPane.slide_speed) {
+				pane.updateFrame((int)userPane.logslider(userPane.slide_speed.getValue(), true));
+			}
 			
 		}};
 	
+		void setPane() {
+			pane.updateDrag(userPane.logslider(userPane.slide_drag.getValue(), false));
+			pane.updateMouse(userPane.logslider(userPane.slide_mouseStrength.getValue(), false));
+			pane.updateGrav(userPane.logslider(userPane.slide_gravity.getValue(), false));
+		}
+		
+		//Check if an action has been performed on certain objects (set in userPane)
 	ActionListener evt = new ActionListener() {
 		
 		public void actionPerformed(ActionEvent e) {
+			//Check what component of the user panel was changed
 			if (e.getSource() == userPane.rb_effects_global) {
 			} else if (e.getSource() == userPane.rb_effects_local) {
 			} else if (e.getSource() == userPane.rb_mode_string) {
@@ -100,14 +115,23 @@ public class FooBall_Frame extends JFrame{
 			} else if (e.getSource() == userPane.rb_mode_poolCue) {
 			} else if (e.getSource() == userPane.rb_mode_grab) {
 			} else if (e.getSource() == userPane.cb_collisions) {
+				//Toggle collisions
 				pane.setCollisions(userPane.cb_collisions.isSelected());
 			} else if (e.getSource() == userPane.cb_realisticCollisions) {
+				//Toggle if the collisions are realistic
 				pane.setRealistic(userPane.cb_realisticCollisions.isSelected());
 			} else if (e.getSource() == userPane.reset) {
+				//Reset the balls
 				pane.reset();
 				userPane.setBalls(pane.getBalls());
+				setPane();
 			} else if (e.getSource() == userPane.slider_reset) {
+				//Reset the positions of the sliders
 				userPane.setSliders();
+			} else if (e.getSource() == userPane.cb_temp) {
+				pane.setDrawTemp(userPane.cb_temp.isSelected());
+			} else if (e.getSource()== userPane.cb_teth) {
+				pane.setTethers(userPane.cb_teth.isSelected());
 			}
 		}
 		
