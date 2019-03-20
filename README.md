@@ -54,9 +54,43 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 Balls will interact with each other accordingly (bouncing, colliding etc) whilst any mouse input with the user inside the black panel will also affect the balls depending on what mode the user has selected.
 
 
-# Design Structure
+# Design Goals/Structure
 
+- Create JFrame/window to hole contents
+- Create Panel to display graphics in Frame
+- Write game loop to time events of program
+- Create objects to hold data for objects 
+- Create boundaries and write physics to redirect balls at boundaries
+- Write collision detection between balls
+- Write physics for colliding balls to bounce off each other
 
+<h3>Boundaries of boxes</h3>
+Each PhysicsObj object stores an array of integers indicating the distance from the origin (top left, [0,0]) which marks it's boundary. i.e. how far it is allowed to travel before it bounces, in order from the left side, clockwise around the frame, to the bottom.
+
+```java
+//Bounce the ball
+		//Bounce on Right side
+		if(x >= xBounds-size/2) {
+			xVel *= -1;
+			x = xBounds-size/2;
+		}
+		//left side
+		if(x <= size/2) {
+			xVel *= -1;
+			x = size/2;
+		}
+		//bottom
+		if(y >= yBounds-size/2) {
+			yVel *= -1;
+			y = yBounds-size/2;
+		}
+		//top
+		if(y <= size/2) {
+			yVel *= -1;
+			y = size/2;
+		}
+```
+[FooBall/src/FooBall_PhysicsObj.java]
 
 
 
