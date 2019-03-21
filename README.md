@@ -64,8 +64,8 @@ Balls will interact with each other accordingly (bouncing, colliding etc) whilst
 - Write collision detection between balls
 - Write physics for colliding balls to bounce off each other
 
-<h3>Boundaries of boxes</h3>
-Each PhysicsObj object stores an array of integers indicating the distance from the origin (top left, [0,0]) which marks it's boundary. i.e. how far it is allowed to travel before it bounces, in order from the left side, clockwise around the frame, to the bottom.
+<h3>Boundaries of objects</h3>
+Each PhysicsObj object stores two integers indicating the distance from the origin (top left, [0,0]) which marks it's boundary. i.e. how far it is allowed to travel before it bounces.
 
 ```java
 //Bounce the ball
@@ -90,7 +90,17 @@ Each PhysicsObj object stores an array of integers indicating the distance from 
 			y = size/2;
 		}
 ```
-[FooBall/src/FooBall_PhysicsObj.java]
+(FooBall/src/FooBall_PhysicsObj.java)
+
+x and y representing the coordinates of the center of the ball, size being the diameter, and x/yBounds being the upper limit of their movement.
+
+This method simply checks if the position of the ball +/- half it's size (to get the position of the side of it, so the centerpoint + the radius) is equal to or has gone beyond the bounds.
+
+If it has, it reverses the velocity of the ball (x or y depending on which side it collided with) and sets the position to be right on the bounds, as for the ball not to get stuck outside of the bounds.
+
+<h3> Collision detection </h3>
+
+At first thought, collision detection between balls seemed intimidating, compared to collision detection between boxes where you just check if the edges are within the domain and range of the other box (later found out to be )
 
 
 
