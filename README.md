@@ -68,7 +68,7 @@ Balls will interact with each other accordingly (bouncing, colliding etc) whilst
 Each PhysicsObj object stores two integers indicating the distance from the origin (top left, [0,0]) which marks it's boundary. i.e. how far it is allowed to travel before it bounces.
 
 ```java
-//Bounce the ball
+	//Bounce the ball
 		//Bounce on Right side
 		if(x >= xBounds-size/2) {
 			xVel *= -1;
@@ -102,18 +102,22 @@ If it has, it reverses the velocity of the ball (x or y depending on which side 
 
 At first thought, collision detection between balls seemed intimidating, compared to collision detection between boxes where you just check if the edges are within the domain and range of the other box (later found out to be called Axis-Aligned Bounding Boxes collision detection) However, this was a very simple problem, as the distance between two points can be found using Pythagoras, and the center of two balls can just be treated as two points.
 ```java
-int x1 = ball1.getX();
-			int x2 = ball2.getX();
-			
-			int y1 = ball1.getY();
-			int y2 = ball2.getY();
-			//Get the distance between those coordinates
-			int distance = (int)Math.sqrt((x2-x1)*(x2-x1)+ (y2-y1)*(y2-y1));
-			//Check if they are touching
-			if(distance <= ball1.getRadius() + ball2.getRadius()) {
-			
-			}
+		//Get x positions of balls
+		int x1 = ball1.getX();
+		int x2 = ball2.getX();
+		
+		//Get y positions of balls
+		int y1 = ball1.getY();
+		int y2 = ball2.getY();
+		//Get the distance between those coordinates
+		int distance = (int)Math.sqrt((x2-x1)*(x2-x1)+ (y2-y1)*(y2-y1));
+		//Check if they are touching
+		if(distance <= ball1.getRadius() + ball2.getRadius()) {
+		
+		}
 ```
+The distance between the points representing the position of the balls are squared and added and then the square root is taken. This distance between the two balls is compared to the sum of the radi, if the distance is equal to or less than the sum of the two radi, we know that the two balls are touching, or even inside each other. Then anything inside the if statement is run.
+
 
 # What I <s>leanred</s> learned/gained
 
