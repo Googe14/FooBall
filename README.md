@@ -116,8 +116,46 @@ At first thought, collision detection between balls seemed intimidating, compare
 		
 		}
 ```
-The distance between the points representing the position of the balls are squared and added and then the square root is taken. This distance between the two balls is compared to the sum of the radi, if the distance is equal to or less than the sum of the two radi, we know that the two balls are touching, or even inside each other. Then anything inside the if statement is run.
+The x and y displacements between the two balls are found, these lengths can be treated as the two shorter sides of a right-angled triangle. With these distances, we can treat the actual distance between the balls as the hypoternuse of the triangle, which can be found using Pythagoras' theorem.
 
+This resultant length is compared to the length of the two radi summed, and if the resultant length is less than the sum of the radi, we know that the two balls are intersecting, if it is equal, the balls are touching, and if it is greater, the balls are not in collision and the program can continue.
+
+<h3>Ball separation</h3>
+
+In a program like this, with a very simple physics engine, it is very possible, in-fact, likely that when two balls collide, they may have moved more than a single pixel at one moment and will go inside the other ball. Due to this intersection, when two balls bounce and they are inside each other, they may not move far enough to go completely outside of each other, and will immediately collide again, which is not realistic, and thus, not what we want. 
+
+```java
+//Get ball positions
+	int x1 = ball1.getX();
+	int y1 = ball1.getY();
+	
+	int x2 = target.getX();
+	int y2 = target.getY();
+	//Get ball sizes
+	int r1 = ball1.getRadius();
+	int r2 = target.getRadius();
+	//Create vector for ball point differences
+	float vx = x2-x1;
+	float vy = y2-y1;
+	//Get original distance apart of balls
+	int px = (int)vx;
+	int py = (int)vy;
+	//Get target distance apart of balls and set it as difference
+	int td = r1+r2;
+	td -= (int)Math.sqrt(px*px + py*py) - 2;
+	if(vx != 0 || vy != 0) {
+		//Get length of vector
+		float vl = (float)Math.sqrt((vx*vx + vy*vy));
+		//Turn into unit vector
+		vx = vx/vl;
+		vy = vy/vl;
+	}
+	
+	//Move balls out of each other
+	target.setPos(target.getX()+(vx*td/2), target.getY()+(vy*td/2));
+	ball1.setPos(ball1.getX()-(vx*td/2), ball1.getY()-(vy*td/2));
+
+```
 
 # What I <s>leanred</s> learned/gained
 
