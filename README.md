@@ -131,15 +131,19 @@ In a program like this, with a very simple physics engine, it is very possible, 
 	
 	int x2 = target.getX();
 	int y2 = target.getY();
+	
 	//Get ball sizes
 	int r1 = ball1.getRadius();
 	int r2 = target.getRadius();
+	
 	//Create vector for ball point differences
 	float vx = x2-x1;
 	float vy = y2-y1;
+	
 	//Get original distance apart of balls
 	int px = (int)vx;
 	int py = (int)vy;
+	
 	//Get target distance apart of balls and set it as difference
 	int td = r1+r2;
 	td -= (int)Math.sqrt(px*px + py*py) - 2;
@@ -154,8 +158,10 @@ In a program like this, with a very simple physics engine, it is very possible, 
 	//Move balls out of each other
 	target.setPos(target.getX()+(vx*td/2), target.getY()+(vy*td/2));
 	ball1.setPos(ball1.getX()-(vx*td/2), ball1.getY()-(vy*td/2));
-
 ```
+
+This method was developed to separate two balls that had collided and intersected. This is done by creating a vector between the position of the two balls
+
 
 # What I <s>leanred</s> learned/gained
 
