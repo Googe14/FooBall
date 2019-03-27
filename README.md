@@ -177,7 +177,7 @@ When two balls collide with each other, two axis of movement are created. These 
 <IMG src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Elastischer_sto%C3%9F_2D.gif">
 
 ```java
-int x1 = ball1.getX();
+	int x1 = ball1.getX();
 	int y1 = ball1.getY();
 	
 	int x2 = target.getX();
@@ -219,6 +219,8 @@ int x1 = ball1.getX();
 	ball1.setVel(0, 0);
 	target.setVel(0, 0);
 ```
+To start with, some useful data is collected from the balls such as the positions, velocities and masses. A normal is found between the balls and a normal is obtained from this normal. 
+
 # What I <s>leanred</s> learned/gained
 
 - How to spell "learned"
