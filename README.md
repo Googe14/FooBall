@@ -164,8 +164,17 @@ This is done by creating a vector between the position of the two balls, collect
 
 When two balls intersect, we want them to separate directly opposite to each other along the vector line between them, which is why we got the vector at the start, but for this direction to be useable to us, we need to turn it into a unit vector so we can scale it to the distance we want.
 
-Finally, now that we have the distance we need to add between them and the scalable vector along which we will add this distance, we multiply the unit vector we have by half of the distance we need to add, and then add/subtract respectively that final amount to the positions of the balls. We are only using half of the target distance because we are adding it to <i>both</i>
+Finally, now that we have the distance we need to add between them and the scalable vector along which we will add this distance, we multiply the unit vector we have by half of the distance we need to add, and then add/subtract respectively that final amount to the positions of the balls. We are only using half of the target distance because we are adding it to <i>both</i> balls, thus we are adding two halves to get the entire target distance.
 
+<h3>Ball bounces</h3>
+
+This is the main attraction of the program now, the realistic interactions between balls in terms of how they bounce.
+
+This part of the project took the most time, effort and research of this entire project as it does not occur to me that the mathematics behind how two balls bounce is a common knowledge in year 11. But eventually it did work.
+
+When two balls collide with each other, two axis of movement are created. These axis of movement are a tangent and normal between the <i>position</i> of the two balls when they touch. The axis of movement are <b>not</b> dependant on their velocities. At the point of the collision, the ball that has been hit will react by moving in the normal direction opposite to the side the collision occured, however, the ball that initiated the collision will move in the tangental direction of these axis. With the directions of movement sorted, the magnitude of these two directional vectors are actually the components of the original velocity vector in the direction of the reaction axis. If this explanation was a bit hard to follow, there is a nice gif to illustrate this reaction.
+
+<IMG src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Elastischer_sto%C3%9F_2D.gif">
 
 # What I <s>leanred</s> learned/gained
 
