@@ -122,7 +122,7 @@ This resultant length is compared to the length of the two radi summed, and if t
 
 <h3>Ball separation</h3>
 
-In a program like this, with a very simple physics engine, it is very possible, in-fact, likely that when two balls collide, they may have moved more than a single pixel at one moment and will go inside the other ball. Due to this intersection, when two balls bounce and they are inside each other, they may not move far enough to go completely outside of each other, and will immediately collide again, which is not realistic, and thus, not what we want. 
+In a program like this, with a very simple physics engine, it is very possible, in-fact, likely, that when two balls collide they may have moved more than a single pixel at one moment and will go inside each other. Due to this intersection, when two balls bounce and they are inside each other, they may not move far enough to go completely outside of each other, especially with air resistance, and will immediately collide again, which is not realistic, and thus, not what we want. To fix this, we need a method that will take two balls that are inside each other and reposition them enough that they will be touching, but no longer intersecting.
 
 ```java
 //Get ball positions
@@ -160,7 +160,11 @@ In a program like this, with a very simple physics engine, it is very possible, 
 	ball1.setPos(ball1.getX()-(vx*td/2), ball1.getY()-(vy*td/2));
 ```
 
-This method was developed to separate two balls that had collided and intersected. This is done by creating a vector between the position of the two balls
+This is done by creating a vector between the position of the two balls, collecting the two radi of the balls and sum them together to get the distance between the two balls that we want to aim for, and also finding the distance between the two balls (refer to previous section about collision detection) to see how much we need to adjust them by. This offset distance is found by subtracting the actual distance from the target distance.
+
+When two balls intersect, we want them to separate directly opposite to each other along the vector line between them, which is why we got the vector at the start, but for this direction to be useable to us, we need to turn it into a unit vector so we can scale it to the distance we want.
+
+Finally, now that we have the distance we need to add between them and the scalable vector along which we will add this distance, we multiply the unit vector we have by half of the distance we need to add, and then add/subtract respectively that final amount to the positions of the balls. We are only using half of the target distance because we are adding it to <i>both</i>
 
 
 # What I <s>leanred</s> learned/gained
