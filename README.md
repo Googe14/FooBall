@@ -32,6 +32,8 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 - <s>Dynamically alter number of balls</s>
 - Multiple game modes
 
+<hr>
+
 # Expected input
 
 <h3>Changing of settings:</h3>
@@ -55,6 +57,7 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 
 Balls will interact with each other accordingly (bouncing, colliding etc) whilst any mouse input with the user inside the black panel will also affect the balls depending on what mode the user has selected.
 
+<hr>
 
 # Design Goals/Structure
 
@@ -223,6 +226,12 @@ When two balls collide with each other, two axis of movement are created. These 
 [FooBall/src/FooBall_Physics.java collideBalls()]
 
 To start with, some useful data is collected from the balls such as the positions, velocities and masses. A normal is found between the balls and a tangent is obtained from this normal by swapping the x and y and making one negative. The dot products are then taken from the vectors of velocity and the tangent/normal, this is done to get a measure of how much of the velocity vectors are in the direction of the tangent/normal axis. Finally, the magnitude of the new velocities are scaled according to preservation of momentum, and all these numbers come together when setting their velocity to these new values.
+
+<hr>
+
+# Objects
+
+
 
 # What I <s>leanred</s> learned/gained
 
