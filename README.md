@@ -176,6 +176,49 @@ When two balls collide with each other, two axis of movement are created. These 
 
 <IMG src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Elastischer_sto%C3%9F_2D.gif">
 
+```java
+int x1 = ball1.getX();
+	int y1 = ball1.getY();
+	
+	int x2 = target.getX();
+	int y2 = target.getY();
+	//Get ball masses
+	float m1 = ball1.getMass();
+	float m2 = target.getMass();
+	//Get ball velocities
+	float v1x = ball1.getVelX();
+	float v1y = ball1.getVelY();
+	
+	float v2x = target.getVelX();
+	float v2y = target.getVelY();
+	//Get distance between balls
+	float balld = (float) Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+	//Create normal with ball positions and distance
+	float nx = (x2-x1) / balld;
+	float ny = (y2-y1) / balld;
+	//Create tangent from normal
+	float tx = -ny;
+	float ty = nx;
+	//Dot products of tangent
+	float dpTan1 = v1x * tx + v1y * ty;
+	float dpTan2 = v2x * tx + v2y * ty;
+	
+	//Dot products of normal
+	float dpNorm1 = v1x * nx + v1y * ny;
+	float dpNorm2 = v2x * nx + v2y * ny;
+	//Get conserved eneragy scalar
+	float fm1 = (dpNorm1 * (m1-m2) + 2.0f * m2	* dpNorm2) / (m1+m2);
+	float fm2 = (dpNorm2 * (m2-m1) + 2.0f * m1	* dpNorm1) / (m1+m2);
+	
+	//Bounce balls
+	//Transfer force to other balls
+	ball1.applyAcc(tx*dpTan1 + nx * fm1, ty*dpTan1 + nx * fm1);
+	target.applyAcc(tx*dpTan2 + nx * fm2, ty*dpTan2 + nx * fm2);
+	
+	//Reset velocity as it has been transferred to another ball (and avoid multiple collisions from creating energy)
+	ball1.setVel(0, 0);
+	target.setVel(0, 0);
+```
 # What I <s>leanred</s> learned/gained
 
 - How to spell "learned"
