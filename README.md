@@ -73,27 +73,27 @@ Balls will interact with each other accordingly (bouncing, colliding etc) whilst
 Each PhysicsObj object stores two integers indicating the distance from the origin (top left, [0,0]) which marks it's boundary. i.e. how far it is allowed to travel before it bounces.
 
 ```java
-		//Bounce the ball
-		//Bounce on Right side
-		if(x >= xBounds-size/2) {
-			xVel *= -1;
-			x = xBounds-size/2;
-		}
-		//left side
-		if(x <= size/2) {
-			xVel *= -1;
-			x = size/2;
-		}
-		//bottom
-		if(y >= yBounds-size/2) {
-			yVel *= -1;
-			y = yBounds-size/2;
-		}
-		//top
-		if(y <= size/2) {
-			yVel *= -1;
-			y = size/2;
-		}
+	//Bounce the ball
+	//Bounce on Right side
+	if(x >= xBounds-size/2) {
+		xVel *= -1;
+		x = xBounds-size/2;
+	}
+	//left side
+	if(x <= size/2) {
+		xVel *= -1;
+		x = size/2;
+	}
+	//bottom
+	if(y >= yBounds-size/2) {
+		yVel *= -1;
+		y = yBounds-size/2;
+	}
+	//top
+	if(y <= size/2) {
+		yVel *= -1;
+		y = size/2;
+	}
 ```
 [FooBall/src/FooBall_PhysicsObj.java move()]
 
@@ -108,19 +108,19 @@ If it has, it reverses the velocity of the ball (x or y depending on which side 
 At first thought, collision detection between balls seemed intimidating, compared to collision detection between boxes where you just check if the edges are within the domain and range of the other box (later found out to be called Axis-Aligned Bounding Boxes collision detection) However, this was a very simple problem, as the distance between two points can be found using Pythagoras, and the center of two balls can just be treated as two points.
 
 ```java
-		//Get x positions of balls
-		int x1 = ball1.getX();
-		int x2 = ball2.getX();
-		
-		//Get y positions of balls
-		int y1 = ball1.getY();
-		int y2 = ball2.getY();
-		//Get the distance between those coordinates
-		int distance = (int)Math.sqrt((x2-x1)*(x2-x1)+ (y2-y1)*(y2-y1));
-		//Check if they are touching
-		if(distance <= ball1.getRadius() + ball2.getRadius()) {
-		
-		}
+	//Get x positions of balls
+	int x1 = ball1.getX();
+	int x2 = ball2.getX();
+	
+	//Get y positions of balls
+	int y1 = ball1.getY();
+	int y2 = ball2.getY();
+	//Get the distance between those coordinates
+	int distance = (int)Math.sqrt((x2-x1)*(x2-x1)+ (y2-y1)*(y2-y1));
+	//Check if they are touching
+	if(distance <= ball1.getRadius() + ball2.getRadius()) {
+	
+	}
 ```
 [FooBall/src/FooBall_Physics.java compareBalls()]
 
