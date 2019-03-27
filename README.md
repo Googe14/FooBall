@@ -90,7 +90,7 @@ Each PhysicsObj object stores two integers indicating the distance from the orig
 			y = size/2;
 		}
 ```
-[FooBall/src/FooBall_PhysicsObj.java]
+[FooBall/src/FooBall_PhysicsObj.java move()]
 
 x and y representing the coordinates of the center of the ball, size being the diameter, and x/yBounds being the upper limit of their movement.
 
@@ -116,7 +116,7 @@ At first thought, collision detection between balls seemed intimidating, compare
 		
 		}
 ```
-[Fooball/src/FooBall_Physics.java compareBalls()]
+[FooBall/src/FooBall_Physics.java compareBalls()]
 
 The x and y displacements between the two balls are found, these lengths can be treated as the two shorter sides of a right-angled triangle. With these distances, we can treat the actual distance between the balls as the hypoternuse of the triangle, which can be found using Pythagoras' theorem.
 
@@ -161,7 +161,7 @@ In a program like this, with a very simple physics engine, it is very possible, 
 	target.setPos(target.getX()+(vx*td/2), target.getY()+(vy*td/2));
 	ball1.setPos(ball1.getX()-(vx*td/2), ball1.getY()-(vy*td/2));
 ```
-[Fooball/src/Fooball_Physics.java separateBalls()]
+[FooBall/src/FooBall_Physics.java separateBalls()]
 
 This is done by creating a vector between the position of the two balls, collecting the two radi of the balls and sum them together to get the distance between the two balls that we want to aim for, and also finding the distance between the two balls (refer to previous section about collision detection) to see how much we need to adjust them by. This offset distance is found by subtracting the actual distance from the target distance.
 
@@ -218,7 +218,7 @@ When two balls collide with each other, two axis of movement are created. These 
 	ball1.setVel(tx*dpTan1 + nx * fm1, ty*dpTan1 + nx * fm1);
 	target.setVel(tx*dpTan2 + nx * fm2, ty*dpTan2 + nx * fm2);
 ```
-[Fooball/src/Fooball_Physics.java collideBalls()]
+[FooBall/src/FooBall_Physics.java collideBalls()]
 
 To start with, some useful data is collected from the balls such as the positions, velocities and masses. A normal is found between the balls and a tangent is obtained from this normal by swapping the x and y and making one negative. The dot products are then taken from the vectors of velocity and the tangent/normal, this is done to get a measure of how much of the velocity vectors are in the direction of the tangent/normal axis. Finally, the magnitude of the new velocities are scaled according to preservation of momentum, and all these numbers come together when setting their velocity to these new values.
 
