@@ -219,7 +219,9 @@ When two balls collide with each other, two axis of movement are created. These 
 	ball1.setVel(0, 0);
 	target.setVel(0, 0);
 ```
-To start with, some useful data is collected from the balls such as the positions, velocities and masses. A normal is found between the balls and a normal is obtained from this normal. 
+To start with, some useful data is collected from the balls such as the positions, velocities and masses. A normal is found between the balls and a tangent is obtained from this normal by swapping the x and y and making one negative. The dot products are then taken from the vectors of velocity and the tangent/normal, this is done to get a measure of how much of the velocity vectors are in the direction of the tangent/normal axis. Finally, the magnitude of the new velocities are scaled according to preservation of momentum, and all these numbers come together when applying this acceleration to the balls.
+
+After the acceleration of the new movement has been applied, the velocities of the balls are reset as to not have them collide with other balls and gain more acceleration and create energy out of nowhere.
 
 # What I <s>leanred</s> learned/gained
 
