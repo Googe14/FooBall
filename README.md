@@ -106,6 +106,7 @@ If it has, it reverses the velocity of the ball (x or y depending on which side 
 <h3> Collision detection </h3>
 
 At first thought, collision detection between balls seemed intimidating, compared to collision detection between boxes where you just check if the edges are within the domain and range of the other box (later found out to be called Axis-Aligned Bounding Boxes collision detection) However, this was a very simple problem, as the distance between two points can be found using Pythagoras, and the center of two balls can just be treated as two points.
+
 ```java
 		//Get x positions of balls
 		int x1 = ball1.getX();
