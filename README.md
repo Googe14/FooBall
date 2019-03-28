@@ -274,12 +274,3 @@ The only other difference is that it also has an id variable which is/was used t
 The final class in this program is the physics class which is used for, well, the physics. This object is created in the GamePanel class and is used to calculate things such as collisions, bounces and comparisons. It has a method which check to make sure there is space available for a ball in a certain position, the method to separate two balls that are touching, the method the <i>check</i> if those two balls are touching, a method which checks every ball in an ArrayList to each other to then check collisions, separationg and bounces. And finally, it has the method which is used to bounces two balls.
 
 This is all done from FooBall_Ball objects that are passed to the Physics object from GamePanel.
-
-<hr>
-
-# What I <s>leanred</s> learned/gained
-
-- How to spell "learned"
-- Elastic collisions between balls
-- Conservation of momentum and energy
-- Experience on better and more efficient application structure
