@@ -19,13 +19,13 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 - Create a number of balls that will bounce and interact with each other
 - Have a number of settings for people to play around with
 
-<h4>Interactions between balls</h3>
+<h3>Interactions between balls</h3>
 
 - Collision detection between circles
 - Seperation method to move circles out of each other if they go into each other
 - Collision physics (2D elastic collisions between circles)
 
-<h4>Possible Extra features:</h3>
+<h3>Possible Extra features:</h3>
 
 - Add pause and continue functionality
 - Select individual balls while paused - edit individual ball's settings'
@@ -236,20 +236,20 @@ In the FooBall source folder there are seven Files, each containing one of the s
 
 This consists of:
 
-<h4>FooBall_App.java</h4>
+<h3>FooBall_App.java</h3>
 This file contains the root class with the main method that the program will start from, in here, we only initialize a couple variables that will be passed to the rest of the program for it to run, like the screen size and the theme of the window. After that, it creates the JFrame and passes flow of the program to there.
 
-<h4>FooBall_Frame.java</h4>
+<h3>FooBall_Frame.java</h3>
 This class has two main sections, the first is to create and initialize the two panels that will be going in it (the graphics panel and the user control panel). Once it has created, initialized and added the two panels to itself, it send some listeners to the user control panel so that it can handle anything that happens when a button is pressed or a slider is slid etc and then pass the information on to the graphics panel.
 
 Once the panels are initialized, flow of the program is handed to the the main panel.
 
-<h4>FooBall_UserPanel.java</h4>
+<h3>FooBall_UserPanel.java</h3>
 This class has a lot of code but not much content, the majority of this class is simply the creation and placing all the buttons on itself and then adding the event handlers from the Frame to the buttons, slider, radios etc.
 
 Alongside that, this class has two methods that are used to determine the values and positions of the sliders on a logarithmic scale, as sliders in java do not have in-built functionality to have a logarithmic scale.
 
-<h4>FooBall_GamePanel.java</h4>
+<h3>FooBall_GamePanel.java</h3>
 This class is perhaps the most complex class in this program. To start with, it has a few methods that are used to implement multithreading, this is necessary as java does not like to repaint if it is called multiple times in quick succession if it is on the main thread. The solution to this is to split it into a separate thread and run the loop from there.
 
 After the multithreading implementation, this class has the game loop, it is possible to split the game loop into it's own class using lambdas to pass certain actions to it, however, I do not have experience with lambda expressions in java and so it is just inside the GamePanel class. Another possiblity to tidy this class up would also be to have the game loop call an abstract method and have a child class that implements this class with the abstract method, however, this is not a big deal and it serves the purpose it has in this form, so I have not bothered to do this.
@@ -260,17 +260,17 @@ After the paintComponent, we have a number of methods and some objects which are
 
 Finally, apart from all those, we have the method which is used to update the state of the game. This method loops through all the existing balls and tell them to move, collide, separate and bounce among each other, if necessary (according to the variables mentioned earlier).
 
-<h4>FooBall_PhysicsObj.java</h4>
+<h3>FooBall_PhysicsObj.java</h3>
 This class serves as an interface for a possible number of different physics objects, as well as being a fully useable physics object itself. This class mostly just stores a bunch of data like its position, velocity, size, colour, mass, density (unused but exists for possibility of future expansion) and acceleration. The majority of this class otherwise are setters and getters for these variables, a method to generate a random new colour for itself, and an unused initialization method.
 
 This class does also contain a method to move or change it's data depending on the current state of that data, change its position depending on velocity, change it's velocity depending on it's acceleration, change it's velocity due to gravity etc, and even bounce depending on what bounds it has set.
 
-<h4>FooBall_Ball.java</h4>
+<h3>FooBall_Ball.java</h3>
 This class is fairly minimal, and yet the most used object in this program. This class implements the PhysicsObj class, so it has all the properties of that class and is fully functional as a PhysicsObj object, however it has another variable, the radius, and a couple changes to the setter for the PhysicsObj size which is to ensure the radius is included and will always be accurate to the size. It also has a method to generate an acceleration towards a point depending on the distance from it on each axis.
 
 The only other difference is that it also has an id variable which is/was used to ensure that a ball is not checked against itself for collisions and bounces etc.
 
-<h4>FooBall_Physics.java</h4>
+<h3>FooBall_Physics.java</h3>
 The final class in this program is the physics class which is used for, well, the physics. This object is created in the GamePanel class and is used to calculate things such as collisions, bounces and comparisons. It has a method which check to make sure there is space available for a ball in a certain position, the method to separate two balls that are touching, the method the <i>check</i> if those two balls are touching, a method which checks every ball in an ArrayList to each other to then check collisions, separationg and bounces. And finally, it has the method which is used to bounces two balls.
 
 This is all done from FooBall_Ball objects that are passed to the Physics object from GamePanel.
