@@ -1,12 +1,10 @@
-# FooBall
+# FooBall - github.com/Googe14/FooBall
 St Philips College - Q1 2019
 Year 11 Digital Technologies assignment
 
 The source code for this project can be found in FooBall/src Starting at FooBall_App.class with multiple compiled versions at different points in development.
 
 This project is very heavily commented for your convenience
-
-<hr>
 
 # Storyboard/Roadmap
 
@@ -32,6 +30,8 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 - <s>Dynamically alter number of balls</s>
 - Multiple game modes
 
+<IMG src="Images/controls.png" align="right" height="650">
+
 # Expected input
 
 <h3>Changing of settings:</h3>
@@ -55,9 +55,8 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 
 Balls will interact with each other accordingly (bouncing, colliding etc) whilst any mouse input with the user inside the black panel will also affect the balls depending on what mode the user has selected.
 
-<hr>
-
-
+<IMG align="left" src="Images/ball.png" width="250" height="250">
+<IMG src="Images/balls.png" width="250" height="250">
 
 # Design Goals/Structure
 
@@ -106,6 +105,9 @@ If it has, it reverses the velocity of the ball (x or y depending on which side 
 <h3> Collision detection </h3>
 
 At first thought, collision detection between balls seemed intimidating, compared to collision detection between boxes where you just check if the edges are within the domain and range of the other box (later found out to be called Axis-Aligned Bounding Boxes collision detection) However, this was a very simple problem, as the distance between two points can be found using Pythagoras, and the center of two balls can just be treated as two points.
+
+<IMG src="Images/collision.png" align="right" width="320" height="300">
+
 
 ```java
 	//Get x positions of balls
@@ -183,7 +185,13 @@ This part of the project took the most time, effort and research of this entire 
 
 When two balls collide with each other, two axis of movement are created. These axis of movement are a tangent and normal between the <i>position</i> of the two balls when they touch. The axis of movement are <b>not</b> dependant on their velocities. At the point of the collision, the ball that has been hit will react by moving in the normal direction opposite to the side the collision occured, however, the ball that initiated the collision will move in the tangental direction of these axis. With the directions of movement sorted, the magnitude of these two directional vectors are actually the components of the original velocity vector in the direction of the reaction axis. If this explanation was a bit hard to follow, there is a nice gif to illustrate this reaction.
 
-<IMG src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Elastischer_sto%C3%9F_2D.gif">
+<hr>
+
+<IMG src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Elastischer_sto%C3%9F_2D.gif" align="right">
+
+<IMG src="Images/gif.png">
+
+
 
 ```java
 	int x1 = ball1.getX();

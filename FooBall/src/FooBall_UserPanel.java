@@ -74,6 +74,8 @@ public class FooBall_UserPanel extends JPanel{
 	
 	JButton reset = new JButton("Reset");
 	
+	JLabel tip = new JLabel("<html><b>Tip:</b> Right click to place a permanent tether</html>");
+	
 	//Get value from position on slider (slider scale logarithmically)
 	float logslider(int position, boolean frame) {
 		
@@ -197,6 +199,9 @@ public class FooBall_UserPanel extends JPanel{
 		
 		this.add(reset);
 		reset.addActionListener(evt);
+		
+		this.add(tip);
+		tip.setMaximumSize(new Dimension(120, 100));
 		
 	}
 	
