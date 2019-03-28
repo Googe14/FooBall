@@ -136,7 +136,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 				g.setColor(tempColour(i));
 			}
 			//Check if mouse is clicked down
-			if(clicked) {
+			if(clicked && drawTeth) {
 				//If so, draw a line connecting the mouse to the ball - before drawing ball so that the ball appears on the line
 				g.drawLine((int)(mouse.getX() - this.getLocationOnScreen().getX()), (int)(mouse.getY()-this.getLocationOnScreen().getY()), (int)(ball.get(i).getX()), (int)(ball.get(i).getY()));
 			}
