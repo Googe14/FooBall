@@ -232,7 +232,38 @@ To start with, some useful data is collected from the balls such as the position
 
 # Objects
 
+In the FooBall source folder there are seven Files, each containing one of the seven classes that work together to make this program work.
 
+This consists of:
+
+<h4>FooBall_App.java</h4>
+This file contains the root class with the main method that the program will start from, in here, we only initialize a couple variables that will be passed to the rest of the program for it to run, like the screen size and the theme of the window. After that, it creates the JFrame and passes flow of the program to there.
+
+<h4>FooBall_Frame.java</h4>
+This class has two main sections, the first is to create and initialize the two panels that will be going in it (the graphics panel and the user control panel). Once it has created, initialized and added the two panels to itself, it send some listeners to the user control panel so that it can handle anything that happens when a button is pressed or a slider is slid etc and then pass the information on to the graphics panel.
+
+Once the panels are initialized, flow of the program is handed to the the main panel.
+
+<h4>FooBall_UserPanel.java</h4>
+This class has a lot of code but not much content, the majority of this class is simply the creation and placing all the buttons on itself and then adding the event handlers from the Frame to the buttons, slider, radios etc.
+
+Alongside that, this class has two methods that are used to determine the values and positions of the sliders on a logarithmic scale, as sliders in java do not have in-built functionality to have a logarithmic scale.
+
+<h4>FooBall_GamePanel.java</h4>
+This class is perhaps the most complex class in this program. To start with, it has a few methods that are used to implement multithreading, this is necessary as java does not like to repaint if it is called multiple times in quick succession if it is on the main thread. The solution to this is to split it into a separate thread and run the loop from there.
+
+After the multithreading implementation, this class has the game loop, it is possible to split the game loop into it's own class using lambdas to pass certain actions to it, however, I do not have experience with lambda expressions in java and so it is just inside the GamePanel class. Another possiblity to tidy this class up would also be to have the game loop call an abstract method and have a child class that implements this class with the abstract method, however, this is not a big deal and it serves the purpose it has in this form, so I have not bothered to do this.
+
+After the game loop for this program, we come across the paintComponent method which is used to render graphics to the panel in which it is implemented. This method is never called directly, however it is invoked by another method when repaint() is called. The paintComponent method is passed a Graphics object which is then used to render graphics with certain methods such as drawOval and fillRect which are looped and passed the details of the balls to draw all the balls on the screen.
+
+After the paintComponent, we have a number of methods and some objects which are used for manipulation of the balls, such as if the velocities of the balls are illustrated through a temperature, if there will be collisions between the balls etc. There are also a number of methods below again which are used to manipulate these, certain methods that are called by the Frame when it recieves an event from the user panel to update the physics of the balls and some of the other variables that were mentioned before. Alongside certain methods which interact with the balls themselves, for example, changing the number of balls and generating a temperature colour depending on their velocities.
+
+Finally, apart from all those, we have the method which is used to update the state of the game. This method loops through all the existing balls and tell them to move, collide, separate and bounce among each other, if necessary (according to the variables mentioned earlier).
+
+<h4>FooBall_PhysicsObj.java</h4>
+This class serves as an interface for a possible number of different physics objects.
+
+<hr>
 
 # What I <s>leanred</s> learned/gained
 
