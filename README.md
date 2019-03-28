@@ -261,7 +261,19 @@ After the paintComponent, we have a number of methods and some objects which are
 Finally, apart from all those, we have the method which is used to update the state of the game. This method loops through all the existing balls and tell them to move, collide, separate and bounce among each other, if necessary (according to the variables mentioned earlier).
 
 <h4>FooBall_PhysicsObj.java</h4>
-This class serves as an interface for a possible number of different physics objects.
+This class serves as an interface for a possible number of different physics objects, as well as being a fully useable physics object itself. This class mostly just stores a bunch of data like its position, velocity, size, colour, mass, density (unused but exists for possibility of future expansion) and acceleration. The majority of this class otherwise are setters and getters for these variables, a method to generate a random new colour for itself, and an unused initialization method.
+
+This class does also contain a method to move or change it's data depending on the current state of that data, change its position depending on velocity, change it's velocity depending on it's acceleration, change it's velocity due to gravity etc, and even bounce depending on what bounds it has set.
+
+<h4>FooBall_Ball.java</h4>
+This class is fairly minimal, and yet the most used object in this program. This class implements the PhysicsObj class, so it has all the properties of that class and is fully functional as a PhysicsObj object, however it has another variable, the radius, and a couple changes to the setter for the PhysicsObj size which is to ensure the radius is included and will always be accurate to the size. It also has a method to generate an acceleration towards a point depending on the distance from it on each axis.
+
+The only other difference is that it also has an id variable which is/was used to ensure that a ball is not checked against itself for collisions and bounces etc.
+
+<h4>FooBall_Physics.java</h4>
+The final class in this program is the physics class which is used for, well, the physics. This object is created in the GamePanel class and is used to calculate things such as collisions, bounces and comparisons. It has a method which check to make sure there is space available for a ball in a certain position, the method to separate two balls that are touching, the method the <i>check</i> if those two balls are touching, a method which checks every ball in an ArrayList to each other to then check collisions, separationg and bounces. And finally, it has the method which is used to bounces two balls.
+
+This is all done from FooBall_Ball objects that are passed to the Physics object from GamePanel.
 
 <hr>
 
