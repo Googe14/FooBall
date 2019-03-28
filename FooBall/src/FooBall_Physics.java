@@ -205,12 +205,12 @@ public class FooBall_Physics {
 			
 			//Bounce balls
 			//Transfer force to other balls
-			ball1.applyAcc(tx*dpTan1 + nx * fm1, ty*dpTan1 + nx * fm1);
-			target.applyAcc(tx*dpTan2 + nx * fm2, ty*dpTan2 + nx * fm2);
+			ball1.setVel(tx*dpTan1 + nx * fm1, ty*dpTan1 + nx * fm1);
+			target.setVel(tx*dpTan2 + nx * fm2, ty*dpTan2 + nx * fm2);
 			
 			//Reset velocity as it has been transferred to another ball (and avoid multiple collisions from creating energy)
-			ball1.setVel(0, 0);
-			target.setVel(0, 0);
+			//ball1.setVel(0, 0);
+			//target.setVel(0, 0);
 			
 		}
 		

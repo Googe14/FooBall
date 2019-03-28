@@ -131,7 +131,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		for(int i=0; i<ball.size(); i++) {
 			//Set colour to that of the select ball
 			g.setColor(ball.get(i).getColour());
-			
+
 			if(drawTemp) {
 				g.setColor(tempColour(i));
 			}
@@ -347,7 +347,7 @@ public class FooBall_GamePanel extends JPanel implements Runnable{
 		//Randomly set position of ball inside panel
 		ball.get(ball.size()-1).setPos((int)(Math.random()*(this.getWidth()-(ball.get(ball.size()-1).getRadius()*2))+ball.get(ball.size()-1).getRadius()), (int)(Math.random()*(this.getHeight()-(ball.get(ball.size()-1).getRadius()*2))+ball.get(ball.size()-1).getRadius()));
 		
-		//Redunadant since update to ball seperation algorithm
+		//Redunadant since addition of ball seperation algorithm
 		/*
 		//Set position of ball randomly, making sure it is not inside any other balls
 		boolean spaceAvailable = false;

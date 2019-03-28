@@ -119,14 +119,10 @@ public class FooBall_PhysicsObj {
 		xVel += xAcc;
 		yVel += yAcc;
 		
-		if(!collided) {
 		//make acceleration opposite the balls direction to slow it down
 		xAcc = xVel * -0.01f * decay;
 		yAcc = yVel * -0.01f * decay;
-		} else {
-			xAcc = 0;
-			yAcc = 0;
-		}
+
 		
 		//Apply gravity
 		//yAcc += gravity/2;
