@@ -32,8 +32,6 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 - <s>Dynamically alter number of balls</s>
 - Multiple game modes
 
-<hr>
-
 # Expected input
 
 <h3>Changing of settings:</h3>
@@ -58,6 +56,8 @@ The objective of this application is to recreate the classic Doccy Jo bouncing b
 Balls will interact with each other accordingly (bouncing, colliding etc) whilst any mouse input with the user inside the black panel will also affect the balls depending on what mode the user has selected.
 
 <hr>
+
+
 
 # Design Goals/Structure
 
